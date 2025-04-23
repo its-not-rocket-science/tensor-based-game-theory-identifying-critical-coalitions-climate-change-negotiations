@@ -1,0 +1,186 @@
+Coalition,GreedyScore,ReferenceScore,ScoreError
+"('greece', 'ireland', 'korea republic of', 'sri lanka')",1270.4610174218355,1237.1737871670616,33.28723025477393
+"('greece', 'ireland', 'korea republic of', 'malaysia')",1257.9970889497897,1224.3509080254885,33.646180924301234
+"('greece', 'ireland', 'korea republic of', 'malaysia')",1257.9970889497897,1224.3509080254885,33.646180924301234
+"('ireland', 'korea republic of', 'nigeria', 'tunisia')",1256.560821418974,1223.3290712642374,33.231750154736574
+"('ireland', 'korea republic of', 'nigeria', 'tunisia')",1256.560821418974,1223.3290712642374,33.231750154736574
+"('algeria', ""korea democratic people's republic"", 'papua new guinea', 'sri lanka')",1250.774965251205,466.5670783085755,784.2078869426296
+"('algeria', ""korea democratic people's republic"", 'papua new guinea', 'sri lanka')",1250.774965251205,466.5670783085755,784.2078869426296
+"('algeria', ""korea democratic people's republic"", 'papua new guinea', 'sri lanka')",1250.774965251205,466.5670783085755,784.2078869426296
+"('greece', 'ireland', 'kenya', 'korea republic of')",1249.477167109902,1216.5122209236142,32.96494618628776
+"('paraguay', 'sri lanka', 'tunisia', 'uruguay')",1245.0461843736498,1212.4567296451646,32.58945472848518
+"('algeria', 'papua new guinea', 'sao tome and principe', 'sri lanka')",1240.2287372950336,226.61998228550945,1013.6087550095242
+"('algeria', 'bangladesh', ""korea democratic people's republic"", 'papua new guinea')",1230.9253362291288,463.479997471701,767.4453387574279
+"('afghanistan', 'algeria', 'papua new guinea', 'sri lanka')",1228.124149749108,469.1619289758417,758.9622207732664
+"('estonia', 'finland', 'korea republic of', 'malaysia')",1225.0163648705538,1191.320861233201,33.695503637352886
+"('estonia', 'finland', 'korea republic of', 'malaysia')",1225.0163648705538,1191.320861233201,33.695503637352886
+"('greece', 'korea republic of', 'morocco', 'spain')",1224.7769466417778,1190.3031118632205,34.473834778557375
+"('greece', 'korea republic of', 'morocco', 'spain')",1224.7769466417778,1190.3031118632205,34.473834778557375
+"('egypt', 'greece', 'korea republic of', 'mauritius')",1222.8092722058543,1190.380952188894,32.42832001696024
+"('bahamas', 'greece', 'ireland', 'korea republic of')",1221.949934830956,1189.8056807272287,32.144254103727235
+"('egypt', 'greece', 'korea republic of', 'sri lanka')",1221.6583099850045,1189.812741115571,31.845568869433464
+"('bahrain', 'greece', 'ireland', 'korea republic of')",1220.380038939685,1188.4145942561438,31.965444683541136
+"('côte d’ivoire', 'ireland', 'korea republic of', 'tunisia')",1219.5740263904029,1187.8183084609104,31.755717929492448
+"('antigua and barbuda', 'greece', 'ireland', 'korea republic of')",1218.0666469897446,1185.8351587004065,32.23148828933813
+"('iceland', 'korea republic of', 'sri lanka', 'tunisia')",1217.033987132455,1185.1989251778405,31.835061954614503
+"('egypt', 'ghana', 'ireland', 'korea republic of')",1215.7461782159437,1183.9395038476298,31.806674368313907
+"('korea republic of', 'malta', 'nigeria', 'tunisia')",1214.8846937266242,1182.2851648546173,32.599528872006886
+"('egypt', 'ireland', 'korea republic of', 'liberia')",1206.8107608317275,1175.0989566759183,31.711804155809205
+"('finland', 'korea republic of', 'malaysia', 'poland')",1206.7889253499916,1173.6169498567328,33.17197549325874
+"('algeria', ""korea democratic people's republic"", 'new zealand', 'sri lanka')",1202.2882098286952,1170.5672462350908,31.720963593604438
+"('afghanistan', 'algeria', 'bangladesh', 'papua new guinea')",1197.5360250623587,457.674183441849,739.8618416205097
+"('greece', 'ireland', 'korea republic of', 'singapore')",1195.6454099412404,1164.0769156384968,31.568494302743602
+"('cyprus', 'korea republic of', 'morocco', 'spain')",1193.5887694870796,1159.9279125319058,33.66085695517381
+"('greece', 'ireland', 'korea republic of', 'saint lucia')",1193.3672961576726,1162.6238992669228,30.743396890749864
+"('egypt', 'greece', 'korea republic of', 'philippines')",1192.806571782245,1161.4212210449116,31.38535073733351
+"('israel', 'papua new guinea', 'paraguay', 'sri lanka')",1190.8341258700757,460.4321548016391,730.4019710684365
+"('korea republic of', 'latvia', 'nigeria', 'portugal')",1190.0101154823124,1158.5904553212029,31.419660161109505
+"('greece', 'korea republic of', 'liberia', 'syria')",1189.7603253161994,1157.9484060554112,31.811919260788272
+"('greece', 'korea republic of', 'morocco', 'saint kitts and nevis')",1189.4023219415094,1157.9838788226734,31.418443118835967
+"(""korea democratic people's republic"", 'new zealand', 'pakistan', 'tunisia')",1188.0347182526612,1156.630942151779,31.40377610088217
+"('croatia', 'korea republic of', 'morocco', 'spain')",1184.2573159461003,1150.8402925992018,33.41702334689853
+"('egypt', 'greece', 'korea republic of', 'oman')",1181.996525788795,1150.9992485889604,30.99727719983457
+"('belize', 'greece', 'ireland', 'korea republic of')",1179.6608512719358,1149.0294075130344,30.63144375890147
+"('guinea', 'malawi', 'tunisia', 'uruguay')",1179.3113244567678,1148.7897602624264,30.52156419434141
+"('guinea', 'malawi', 'tunisia', 'uruguay')",1179.3113244567676,1148.7897602624264,30.52156419434118
+"('barbados', 'ireland', 'korea republic of', 'morocco')",1178.5338584196606,1147.4095421716386,31.12431624802207
+"('djibouti', 'egypt', 'korea republic of', 'sudan')",1178.4605173497764,1147.719155039194,30.741362310582417
+"('djibouti', 'egypt', 'korea republic of', 'sudan')",1178.4605173497764,1147.719155039194,30.741362310582417
+"('cabo verde', 'paraguay', 'tunisia', 'uruguay')",1176.1519437819786,1145.9887675347295,30.163176247249112
+"('algeria', 'papua new guinea', 'solomon islands', 'sri lanka')",1176.1165908611408,466.1313597737046,709.9852310874362
+"('burkina faso', 'senegal', 'tunisia', 'uruguay')",1174.067403385809,1143.022877235602,31.044526150207048
+"('niger', 'senegal', 'tunisia', 'uruguay')",1171.212372982378,1140.2595243390597,30.952848643318248
+"('albania', 'korea republic of', 'morocco', 'spain')",1171.0071091041073,1138.420353223464,32.586755880643295
+"('albania', 'korea republic of', 'morocco', 'spain')",1171.0071091041073,1138.420353223464,32.586755880643295
+"('jamaica', 'paraguay', 'tunisia', 'uruguay')",1170.2432838402872,1140.4543308753916,29.788952964895543
+"('iran', 'ireland', 'korea republic of', 'tunisia')",1170.2219096131405,1139.7477168438531,30.474192769287356
+"('greece', 'korea republic of', 'morocco', 'sierra leone')",1168.7555344118923,1137.8296087781212,30.925925633771158
+"('mali', 'senegal', 'tunisia', 'uruguay')",1168.5118540996498,1137.8476401281243,30.66421397152544
+"('cuba', 'paraguay', 'tunisia', 'uruguay')",1165.9273539050484,1135.6666522531336,30.260701651914815
+"('algeria', 'bangladesh', 'bhutan', 'papua new guinea')",1163.954521535813,446.5543806414194,717.4001408943936
+"('paraguay', 'tunisia', 'united arab emirates', 'uruguay')",1163.7176042671324,1133.7758242251718,29.941780041960556
+"('greece', 'ireland', 'korea republic of', 'venezuela')",1162.821988523326,1132.1189497277026,30.703038795623343
+"('afghanistan', 'algeria', 'maldives', 'papua new guinea')",1161.0491191509482,443.5795518740412,717.4695672769069
+"('ireland', 'montenegro', 'morocco', 'nigeria')",1159.077987163081,1127.9134487580884,31.164538404992527
+"('iraq', 'jordan', 'korea republic of', 'lebanon')",1158.5437440489502,1127.5970365421092,30.946707506840994
+"('iraq', 'jordan', 'korea republic of', 'lebanon')",1158.5437440489502,1127.5970365421092,30.946707506840994
+"('bulgaria', 'korea republic of', 'pakistan', 'sweden')",1156.2370055833214,1125.3605661073025,30.87643947601896
+"('bulgaria', 'korea republic of', 'pakistan', 'sweden')",1156.2370055833214,1125.3605661073025,30.87643947601896
+"('bulgaria', 'korea republic of', 'norway', 'sri lanka')",1156.1251804831732,1125.9419835835913,30.183196899581844
+"('algeria', ""korea democratic people's republic"", 'papua new guinea', 'qatar')",1155.19372513734,424.2480137593184,730.9457113780215
+"('finland', 'korea republic of', 'latvia', 'liberia')",1153.8195463284042,1123.3453478262263,30.474198502177842
+"('belgium', 'kenya', 'korea republic of', 'switzerland')",1151.3320662477415,1120.7552704199477,30.57679582779383
+"('jordan', 'samoa', 'sudan', 'tunisia')",1150.8253436216005,1120.8645683511904,29.960775270410068
+"('ireland', 'korea republic of', 'saint vincent and grenadines', 'tunisia')",1150.548292524406,1121.183906993006,29.364385531399876
+"('egypt', 'greece', 'korea republic of', 'trinidad and tobago')",1149.197366432228,1119.4393918674384,29.757974564789492
+"('eswatini', 'samoa', 'togo', 'tunisia')",1148.2544524499383,1118.9873690713098,29.267083378628513
+"('finland', 'korea republic of', 'malaysia', 'romania')",1147.1698031587362,1116.6181383415917,30.551664817144456
+"('georgia', 'ireland', 'korea republic of', 'maldives')",1147.05092127107,1117.6584225346712,29.392498736398693
+"('egypt', 'ireland', 'korea republic of', 'yemen')",1146.3661701682831,1116.144578437108,30.221591731175067
+"('finland', 'korea republic of', 'lithuania', 'malaysia')",1142.4664229728344,1111.8809860907504,30.585436882083968
+"('denmark', 'korea republic of', 'liberia', 'switzerland')",1139.7399657802357,1109.5217902175357,30.218175562700026
+"('korea republic of', 'liberia', 'netherlands', 'switzerland')",1139.4691660775018,1108.9086631542325,30.56050292326927
+"('korea republic of', 'liberia', 'netherlands', 'switzerland')",1139.4691660775015,1108.9086631542325,30.56050292326904
+"('benin', 'guinea-bissau', 'ireland', 'korea republic of')",1139.210476053853,1110.9185312627187,28.291944791134256
+"('korea republic of', 'morocco', 'slovenia', 'spain')",1137.1023735987562,1105.3380526900903,31.764320908665923
+"('guinea-bissau', 'ireland', 'samoa', 'togo')",1133.064818826038,1104.4820486293934,28.58277019664456
+"('algeria', 'eswatini', 'samoa', 'seychelles')",1131.5741681709171,1102.6816766151198,28.892491555797278
+"('paraguay', 'thailand', 'tunisia', 'uruguay')",1128.0014252499886,1099.2353221993485,28.76610305064014
+"('mali', 'samoa', 'togo', 'tunisia')",1126.3656082320415,1097.5555624670883,28.810045764953202
+"('mali', 'samoa', 'togo', 'tunisia')",1126.3656082320415,1097.5555624670883,28.810045764953202
+"('chile', 'pakistan', 'paraguay', 'tunisia')",1126.2504927355096,1096.8095675678555,29.440925167654086
+"('algeria', 'laos', 'papua new guinea', 'paraguay')",1126.1878753834008,427.0518551342418,699.136020249159
+"('algeria', 'laos', 'papua new guinea', 'paraguay')",1126.1878753834008,427.0518551342418,699.136020249159
+"('algeria', ""korea democratic people's republic"", 'kuwait', 'papua new guinea')",1121.7552024061815,404.93645357645966,716.8187488297219
+"('côte d’ivoire', 'korea republic of', 'libya', 'sao tome and principe')",1121.16257172449,435.1353416738585,686.0272300506315
+"(""korea democratic people's republic"", 'samoa', 'tonga', 'tunisia')",1121.1164558355176,1092.063176835368,29.053279000149587
+"('rwanda', 'samoa', 'togo', 'tunisia')",1118.880021871433,1090.607721264293,28.27230060713987
+"('eswatini', 'madagascar', 'samoa', 'tunisia')",1118.6946687309876,1090.2662660274038,28.428402703583743
+"('finland', 'hungary', 'korea republic of', 'sri lanka')",1118.1466277684674,1089.4739221172704,28.67270565119702
+"('bolivia', 'samoa', 'togo', 'tunisia')",1117.3792639109276,1089.2242497602326,28.155014150695024
+"('greece', 'korea republic of', 'monaco', 'spain')",1116.4585395481868,1085.5596659275216,30.8988736206652
+"('algeria', 'dominican republic', 'papua new guinea', 'paraguay')",1115.781522447445,440.1202424756628,675.6612799717823
+"('egypt', 'greece', 'korea republic of', 'nicaragua')",1114.8178069954204,1086.075856433166,28.74195056225426
+"('afghanistan', 'armenia', 'papua new guinea', 'sri lanka')",1114.0950092510934,439.8176397146579,674.2773695364356
+"('guinea-bissau', 'mauritania', 'samoa', 'tunisia')",1113.469273956055,1085.558223618558,27.911050337497045
+"('chad', 'senegal', 'tunisia', 'uruguay')",1109.494914664658,1080.6002153516145,28.894699313043475
+"('eswatini', 'mongolia', 'samoa', 'tunisia')",1109.2690191635645,1081.2827596931768,27.986259470387722
+"('korea republic of', 'liberia', 'luxembourg', 'netherlands')",1107.2469938956508,1078.0858258299763,29.161168065674474
+"('azerbaijan', 'bahamas', 'greece', 'ireland')",1105.853430142586,1076.796685664122,29.056744478463997
+"('egypt', 'greece', 'korea republic of', 'vanuatu')",1105.185980521238,1075.483546436477,29.70243408476108
+"('algeria', 'cambodia', 'papua new guinea', 'paraguay')",1103.8173068086114,403.1376897987794,700.6796170098321
+"('czechia', 'finland', 'korea republic of', 'pakistan')",1103.3664852569154,1074.3530214823948,29.013463774520687
+"('panama', 'paraguay', 'tunisia', 'uruguay')",1102.3287794885018,1073.9809178663536,28.34786162214823
+"('lesotho', 'samoa', 'togo', 'tunisia')",1101.3392625649126,1073.705489173968,27.633773390944498
+"('austria', 'korea republic of', 'sri lanka', 'sweden')",1098.7254271583097,1070.4903289999618,28.23509815834791
+"('egypt', 'ethiopia', 'samoa', 'togo')",1098.419442444531,1069.913630092798,28.505812351732857
+"('el salvador', 'paraguay', 'tunisia', 'uruguay')",1097.608745723773,1069.632752620777,27.97599310299597
+"('guatemala', 'paraguay', 'tunisia', 'uruguay')",1096.982697457748,1068.819870332431,28.16282712531688
+"('latvia', 'moldova', 'portugal', 'sri lanka')",1094.6034657800776,1065.911723409943,28.691742370134534
+"('honduras', 'sao tome and principe', 'tunisia', 'uruguay')",1092.6856346167683,410.0637323392292,682.6219022775391
+"('cameroon', 'congo democratic republic of', 'papua new guinea', 'tunisia')",1091.818589387979,541.5313401098875,550.2872492780915
+"('cameroon', 'congo democratic republic of', 'papua new guinea', 'tunisia')",1091.818589387979,541.5313401098875,550.2872492780915
+"('cabo verde', 'eritrea', 'tunisia', 'uruguay')",1091.4982338745872,1064.1718876404884,27.326346234098764
+"('estonia', 'korea republic of', 'malaysia', 'russia')",1090.235995633429,1060.892066270396,29.343929363032885
+"('algeria', 'laos', 'nepal', 'papua new guinea')",1089.866867783865,401.0675814486585,688.7992863352065
+"('bolivia', 'lebanon', 'papua new guinea', 'suriname')",1089.4216604483795,475.00402039581655,614.417640052563
+"('algeria', 'cameroon', 'central african republic', 'papua new guinea')",1088.2767927716309,522.8190259436302,565.4577668280007
+"('algeria', 'burma', ""korea democratic people's republic"", 'papua new guinea')",1084.9866637653397,385.02493395648094,699.9617298088588
+"('algeria', 'bhutan', 'comoros', 'samoa')",1083.211275428952,1055.079780882843,28.131494546109025
+"('algeria', 'bangladesh', 'haiti', 'papua new guinea')",1082.7860432314642,434.1102638938557,648.6757793376084
+"('kyrgyzstan', 'laos', 'papua new guinea', 'paraguay')",1081.316972899309,447.0622997209642,634.2546731783448
+"('algeria', 'cabo verde', 'equatorial guinea', 'korea republic of')",1080.4247568418557,1052.9405988727674,27.4841579690883
+"('fiji', 'ireland', 'solomon islands', 'tonga')",1078.0425201879173,1049.402693228739,28.639826959178208
+"('bolivia', 'guyana', 'tunisia', 'uruguay')",1076.7083085099132,1049.5696292584532,27.138679251459962
+"('paraguay', 'tunisia', 'uruguay', 'vietnam')",1076.518356404655,1049.0049994053873,27.51335699926767
+"('samoa', 'togo', 'tunisia', 'zambia')",1075.3170487168477,1048.1784484504162,27.138600266431467
+"('israel', 'palau', 'samoa', 'solomon islands')",1068.594311969736,1039.665201815941,28.929110153795136
+"('israel', 'palau', 'samoa', 'solomon islands')",1068.594311969736,1039.665201815941,28.929110153795136
+"('bolivia', 'colombia', 'ecuador', 'greece')",1066.080197111963,1037.912143004142,28.168054107820808
+"('bolivia', 'colombia', 'ecuador', 'greece')",1066.080197111963,1037.912143004142,28.168054107820808
+"('ireland', 'kiribati', 'samoa', 'solomon islands')",1063.9733155524057,1035.8329701442922,28.14034540811349
+"('gambia', 'guinea-bissau', 'ireland', 'samoa')",1060.929010391389,1034.5733034192538,26.355706972135295
+"('botswana', 'namibia', 'samoa', 'tunisia')",1056.6793216861167,1029.9886410149502,26.690680671166547
+"('bolivia', 'colombia', 'greece', 'peru')",1055.7313639079755,1028.0314443676505,27.699919540325027
+"('burundi', 'samoa', 'togo', 'tunisia')",1053.0259501084497,1026.6515728826369,26.37437722581285
+"('congo democratic republic of', 'congo republic of the', 'tunisia', 'uruguay')",1048.790065601508,1022.0160918555814,26.773973745926696
+"('finland', 'pakistan', 'romania', 'ukraine')",1043.6814627832748,1015.0715706664972,28.609892116777587
+"('afghanistan', 'dominica', 'samoa', 'tunisia')",1042.970953353977,1016.8364447079538,26.134508646023164
+"('brunei', 'georgia', 'ireland', 'korea republic of')",1041.6649261725406,1014.9598416660896,26.705084506451044
+"('eswatini', 'samoa', 'tanzania', 'tunisia')",1040.7887383038192,1014.7718136655036,26.016924638315572
+"('samoa', 'togo', 'tunisia', 'uganda')",1040.5033590020118,1014.495289663868,26.008069338143855
+"('ireland', 'marshall islands', 'samoa', 'solomon islands')",1034.061144429049,1007.1330920475492,26.928052381499697
+"('botswana', 'mongolia', 'samoa', 'tajikistan')",1031.574739402851,1003.9424906233492,27.63224877950188
+"('bosnia and herzegovina', 'laos', 'moldova', 'paraguay')",1029.211082958264,1000.9743020896236,28.236780868640267
+"('costa rica', 'paraguay', 'tunisia', 'uruguay')",1027.7560628194688,1001.74021199933,26.01585082013878
+"('djibouti', 'samoa', 'somalia', 'tunisia')",1023.7757232676933,998.1528271863012,25.622896081392014
+"('algeria', 'bangladesh', 'east timor', 'papua new guinea')",1023.6877744981836,364.133089299871,659.5546851983125
+"('finland', 'moldova', 'mongolia', 'slovakia')",1023.3784683878132,995.773622364986,27.604846022827246
+"('botswana', 'mozambique', 'samoa', 'tunisia')",1022.8146340299072,997.2382961320742,25.576337897833014
+"('botswana', 'mozambique', 'samoa', 'tunisia')",1022.8146340299072,997.2382961320742,25.576337897833014
+"('congo democratic republic of', 'egypt', 'fiji', 'gabon')",1022.4479385079376,995.744851531302,26.703086976635632
+"('angola', 'egypt', 'greece', 'korea republic of')",1020.7506616754056,994.867347998809,25.883313676596572
+"('afghanistan', 'liechtenstein', 'sri lanka', 'uruguay')",1014.526171742662,988.615422193619,25.910749549042976
+"('kazakhstan', 'korea republic of', 'mongolia', 'sao tome and principe')",1005.0701212297968,367.14755679140137,637.9225644383954
+"('israel', 'nauru', 'palau', 'samoa')",1004.1705454024902,976.5356542803448,27.634891122145405
+"('korea republic of', 'mongolia', 'sao tome and principe', 'turkmenistan')",1000.954219736834,368.783614249007,632.1706054878271
+"('moldova', 'portugal', 'serbia', 'sri lanka')",983.4385900025734,958.3028253698612,25.135764632712153
+"('belarus', 'finland', 'hungary', 'pakistan')",972.8751837069848,946.9548399764466,25.920343730538207
+"('marshall islands', 'micronesia', 'samoa', 'tunisia')",968.966954659712,942.8025474045476,26.164407255164406
+"('ireland', 'samoa', 'solomon islands', 'tuvalu')",963.7218883973438,938.2655138698196,25.45637452752419
+"('finland', 'macedonia', 'moldova', 'sri lanka')",963.1942608925988,938.094397879333,25.099863013265804
+"('andorra', 'comoros', 'georgia', 'samoa')",958.1856261576004,933.1980493118716,24.987576845728768
+"('samoa', 'tanzania', 'tunisia', 'zimbabwe')",957.4106932354672,933.3703551219612,24.04033811350598
+"('grenada', 'haiti', 'israel', 'papua new guinea')",951.854510557448,466.8406193620309,485.01389119541705
+"('algeria', 'laos', 'papua new guinea', 'san marino')",895.9307828706231,314.1557182024195,581.7750646682036
+"('denmark', 'estonia', 'liberia', 'ussr')",882.5740097737302,858.3962709728927,24.17773880083746
+"('comoros', 'israel', 'samoa', 'south sudan')",864.9578763000598,842.6251958609089,22.332680439150863
+"('kyrgyzstan', 'laos', 'papua new guinea', 'uzbekistan')",813.5262467649889,321.2439116332244,492.28233513176446
+"('greece', 'ireland', 'tunisia', 'yugoslavia')",739.9264813171176,719.4284491171688,20.49803219994874
+"('comoros', 'holy see', 'israel', 'samoa')",715.1430959098547,697.0861158955303,18.05698001432438
+"('bangladesh', ""korea democratic people's republic"", 'papua new guinea', 'south yemen')",676.1074995217409,148.71355765248063,527.3939418692603
+"('austria', 'czechoslovakia', 'finland', 'pakistan')",675.4082879695726,657.1937343472622,18.214553622310405
+"('guinea-bissau', 'ireland', 'sao tome and principe', 'togo')",642.4464090678365,625.9914122900379,16.454996777798556
+"('guinea-bissau', 'ireland', 'papua new guinea', 'togo')",642.4464090678365,625.9914122900378,16.45499677779867
+"('côte d’ivoire', 'guinea-bissau', 'ireland', 'togo')",642.4464090678365,909.3262248816272,-266.87981581379074
+"('denmark', 'east germany', 'estonia', 'ussr')",584.2797727701337,565.4348424685105,18.844930301623208
