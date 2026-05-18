@@ -38,7 +38,14 @@ Climate change negotiations involve numerous heterogeneous actors, from nation-s
 
 \section{Background and Motivation}
 \label{sec:background}
-Discuss relevant work in climate coalitions, game theory, and tipping points. Include references to Tavoni et al., Young, Roemer, etc.
+
+International climate negotiations operate across two distinct timescales. On the longer scale, formal agreements such as the Kyoto Protocol (1997) and the Paris Agreement (2015) establish binding or voluntary emissions commitments among all UNFCCC parties. On the shorter scale, specific negotiation rounds are shaped by informal diplomatic coalitions that advocate for particular positions, draft text, and build political momentum. The history of these negotiations reveals a recurring pattern: small, strategically assembled coalitions of relatively low-power nations have repeatedly outperformed their nominal influence, shifting outcomes in ways that larger blocs could not.
+
+The Alliance of Small Island States (AOSIS) is perhaps the most cited example. Despite representing fewer than 1\% of global greenhouse gas emissions, AOSIS was instrumental in establishing the 1.5\textdegree C aspirational target in the Paris Agreement, a position far from settled at the outset of COP21~\cite{ourbetterworld_aosis}. Similarly, the High Ambition Coalition, a cross-regional grouping of approximately 100 parties, emerged during COP21 to push for ambitious language on long-term temperature goals and transparency mechanisms. These cases illustrate that coalition effectiveness depends not on aggregate emissions or economic power, but on alignment, geographic diversity, and strategic timing.
+
+This observation raises a formal question: given the multi-dimensional strategic landscape of climate negotiations, which properties characterise small coalitions with disproportionate influence? Standard approaches from cooperative game theory, such as Shapley values and core analysis, address payoff allocation but are not designed to model the dynamic propagation of influence through a heterogeneous network of actors. Non-cooperative approaches based on Nash equilibrium assume symmetric information and well-defined action spaces that do not naturally accommodate the continuous, norm-driven adjustment observed in multilateral diplomacy~\cite{barrett1994self, nordhaus2015climate}.
+
+We argue that the interaction structure in climate negotiations is fundamentally triadic: a country's strategic update depends not only on bilateral relationships but on how \emph{pairs} of other actors jointly influence the normative landscape. This is the structure captured by third-order tensors. By representing influence as a tensor $\mathcal{T} \in \mathbb{R}^{N \times N \times N}$, we can model nonlinear coalition dynamics that bilateral frameworks miss. Combined with a reinforcement learning policy gradient optimiser trained on real treaty participation data, this approach provides a computationally tractable method for identifying candidate tipping coalitions from the full space of non-G20 nations.
 
 \section{Related Work}
 \label{sec:related}
@@ -187,16 +194,16 @@ We extend the simulation to a ten-player system ($N=10$) with three major player
 
 \subsection{Minimum Tipping Coalition and Efficiency}
 
-We define a tipping coalition as any group whose activation causes the dominant eigenvalue $\lambda_{\max}$ to cross a threshold $\lambda_{\text{crit}} = 30$. We exhaustively search all subsets of minor players (3–9), simulate each case, and compute both tipping and efficiency:
+We define a tipping coalition as any group whose activation causes the dominant eigenvalue $\lambda_{\max}$ to cross a threshold $\lambda_{\text{crit}} = 30$. We exhaustively search all subsets of minor players (3–9), simulate each case, and compute both tipping and per-member efficiency:
 \[
-\eta(C) = \frac{\lambda_{\max}(C) - \lambda_0}{|C|}
+\varepsilon(C) = \frac{\lambda_{\max}(C) - \lambda_0}{|C|}
 \]
 
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=0.8\textwidth]{figures/coalition_efficiency_plot.png}
 	\caption{
-		Distribution of coalition efficiency scores across coalition sizes. Efficiency is defined as the eigenvalue gain per cooperating member. Smaller coalitions are often more efficient, demonstrating that tipping potential depends more on player influence and position than coalition size alone.
+		Distribution of coalition efficiency scores $\varepsilon(C)$ across coalition sizes. Efficiency is defined as the eigenvalue gain per cooperating member. Smaller coalitions are often more efficient, demonstrating that tipping potential depends more on player influence and position than coalition size alone.
 	}
 	\label{fig:coalition_efficiency}
 \end{figure}
@@ -269,7 +276,7 @@ We experiment with various penalty structures:
 \[
 \text{reward} = \text{gain} - \alpha \cdot |C|^2
 \]
-to control coalition bloat and prioritize strategic leverage over size.
+to control coalition bloat and prioritise strategic leverage over size. In experiments, $\alpha = 0.1$ is used for the penalised condition.
 
 \begin{figure}[htbp]
 	\centering
@@ -319,7 +326,7 @@ However, coalitions that span multiple clusters may be less obvious—and more v
 \subsection{Exhaustive Search for Minor-Player Tipping Coalitions}
 \label{sec:minor_coalitions}
 
-To operationalise our tipping-point model on real data, we implemented an exhaustive search over potential coalitions of \textit{minor players}, defined here as countries not in the G20. For each coalition of size 2 to 5, we computed a composite tipping score that combines three criteria:
+To operationalise our tipping-point model on real data, we implemented an exhaustive search over potential coalitions of \textit{minor players}, defined here as countries not in the G20. For each coalition of size 2 to 4, we computed a composite tipping score that combines three criteria:
 
 \begin{enumerate}
 	\item \textbf{Internal similarity}: the average pairwise cosine similarity of treaty profiles within the coalition.
@@ -336,20 +343,17 @@ Each coalition \( C \) received a score defined as:
 Although conceptually simple, this approach scales combinatorially. Given \( n \) minor players, there are:
 
 \[
-\sum_{k=2}^5 \binom{n}{k} = O(n^5)
+\sum_{k=2}^4 \binom{n}{k} = O(n^4)
 \]
 
-coalitions to evaluate. In our case, with \( n \approx 150 \), the number of combinations exceeded 4 million. The implementation was terminated due to exceeding runtime limits, highlighting the need for algorithmic optimisation.
+coalitions to evaluate. With \( n = 189 \) minor players in the dataset, the number of 2--4 member coalitions is:
+\[
+\binom{189}{2} + \binom{189}{3} + \binom{189}{4} = 17{,}766 + 1{,}107{,}414 + 51{,}494{,}751 \approx 52.6 \text{ million}
+\]
+This search completed, producing a 3.7~GB output file. Extending to 5-member coalitions would add a further 1.9~billion combinations, which was not attempted.
 
-\paragraph{Future Optimisation Strategies.}
-To improve feasibility, we propose:
-\begin{itemize}
-	\item Filtering to the most influential minor players using centrality metrics;
-	\item Limiting to cross-cluster combinations only;
-	\item Applying greedy, genetic, or reinforcement learning–based search.
-\end{itemize}
-
-These optimisations will be used in subsequent experiments to identify tractable and strategic candidate coalitions.
+\paragraph{Scalability.}
+For larger coalition sizes, exhaustive enumeration becomes intractable. We address this in subsequent sections using greedy forward selection and reinforcement learning, both of which discover high-scoring coalitions without full enumeration.
 
 \subsection{Empirical Calibration of Tipping Thresholds}
 \label{sec:empirical_tipping_threshold}
@@ -534,9 +538,9 @@ We trained a REINFORCE policy gradient agent over 1{,}000 epochs on the real-dat
 where $\bar{v}_C$ is the mean composite vulnerability score of coalition members. The division by $|C|$ penalises oversized coalitions, prioritising per-member strategic leverage over raw scale.
 
 \paragraph{Gumbel Top-K Sampling.}
-Standard Bernoulli sampling from 175 independent Bernoulli trials yields an expected coalition size of $\approx N/2 = 87$, which exceeds the size cap of 8 and produces zero valid training episodes. We instead adopt Gumbel top-K sampling~\cite{kool2019attention}: for each training step, a coalition size $k \sim \mathrm{Uniform}\{2, \ldots, 8\}$ is drawn, and $k$ countries are selected without replacement by perturbing the log-probabilities with i.i.d.\ Gumbel noise and taking the top-$k$ indices. This method samples exactly from the policy's categorical distribution without replacement, guaranteeing a valid coalition at every step. The policy network's bias was initialised to $\mathrm{logit}(8/175) \approx -3.1$, so the baseline inclusion probability matches the size-cap target from the first epoch.
+Standard Bernoulli sampling from 175 independent Bernoulli trials yields an expected coalition size of $\approx N/2 = 87$, which exceeds the size cap of 8 and produces zero valid training episodes. We instead adopt Gumbel top-K sampling~\cite{kool2019attention}: for each training step, a coalition size $k \sim \mathrm{Uniform}\{2, \ldots, 8\}$ is drawn, and $k$ countries are selected without replacement by perturbing the log-probabilities with i.i.d.\ Gumbel noise and taking the top-$k$ indices. This method samples exactly from the policy's categorical distribution without replacement, guaranteeing a valid coalition at every step. The policy network's bias was initialised to $\mathrm{logit}(8/175) \approx -3.0$, so the baseline inclusion probability matches the size-cap target from the first epoch.
 
-A running exponential moving average baseline (decay $\alpha = 0.05$) was subtracted from rewards before computing the REINFORCE gradient update, preventing probability creep in which all positive rewards cause unbounded probability growth.
+A running exponential moving average baseline with mixing coefficient $\alpha = 0.05$ was subtracted from rewards before computing the REINFORCE gradient update, preventing probability creep in which all positive rewards cause unbounded probability growth.
 
 \subsection{Coalition Discovery Results}
 \label{sec:results_coalitions}
@@ -650,7 +654,34 @@ The vulnerability multiplier $(1 + 0.5\,\bar{v}_C)$ creates a systematic prefere
 
 \section{Discussion and Implications}
 \label{sec:discussion}
-Interpret results, potential real-world applications, and links to climate governance frameworks.
+
+\subsection*{Interpretation of Keystone Actors}
+
+The dominance of Uruguay and Tunisia as keystone actors --- appearing in 23\% and 20\% of top-100 coalitions respectively --- reflects the intersection of two distinct properties in the reward function. Both countries have dense treaty ratification profiles that elevate coalition alignment scores, and both carry composite vulnerability scores above the dataset median (Uruguay: 0.40, Tunisia: 0.63; see Table~\ref{tab:keystone_countries}), generating a persistent multiplicative boost to the tipping score. Their geographic positioning --- South America and North Africa respectively --- also provides cross-cluster reach: including either country typically bridges at least one cluster boundary and contributes to the diversity term.
+
+Northern and Southern European keystones (Greece, Spain, Sweden, Finland, Cyprus) primarily contribute through alignment. These countries share ratification profiles with a broad set of treaty partners across multiple regions, producing high pairwise cosine similarities even with geographically distant coalition members. Their inclusion consistently raises the alignment component of the tipping score without requiring large coalition size.
+
+The SIDS representation in optimal coalitions (Bahamas, Saint Kitts and Nevis, Marshall Islands, Palau) reflects the vulnerability multiplier's effect: SIDS are assigned a Sea Level Exposure score of 1.0, the maximum possible, and carry composite vulnerability scores near 0.5 that substantially boost the reward multiplicative term. The algorithmic preference for including frontline-affected nations is not imposed by design; it emerges from the structure of the reward function. Coalitions that maximise tipping score under this formulation also tend to include nations most directly threatened by climate outcomes --- an alignment between computational optimisation and the normative demands of climate justice.
+
+\subsection*{Cross-Cluster Diversity as a Structural Requirement}
+
+The finding that all top-10 coalitions span at least 6 of the 8 hierarchical treaty clusters identifies cross-cluster diversity not merely as a desirable property but as a necessary condition for high-scoring configurations. This arises from the multiplicative structure of the reward function: the ClusterDiversity term can only reach values of 6 or 7 if coalition members are drawn from correspondingly many distinct ratification communities. Single-cluster coalitions, regardless of internal alignment, are penalised by a low diversity multiplier.
+
+This result operationalises the theoretical prediction from Section~\ref{sec:clustering}: the most strategically valuable coalitions are often the least obvious. Within-cluster groupings reflect existing regional blocs and are likely already explored diplomatically. Cross-cluster alliances that bridge distant treaty communities represent the novel candidates that computational coalition discovery can surface.
+
+\subsection*{Comparison to Real-World Coalitions}
+
+As discussed in Section~\ref{sec:empirical_validation}, several model-identified high-scoring coalitions contain members of known real-world climate initiatives. AOSIS-affiliated nations (Bahamas, Saint Kitts and Nevis, Marshall Islands, Samoa, Vanuatu, Palau) appear frequently in top-ranking coalitions. This overlap supports the model's empirical plausibility: nations that have historically formed influential coalitions in actual negotiations also score highly under our tipping score framework. Importantly, this alignment is not guaranteed by construction, since the tipping score is derived from treaty co-ratification patterns and influence spread, not from historical negotiation outcomes. The overlap is therefore a form of out-of-sample consistency rather than a definitional artifact.
+
+\subsection*{Limitations}
+
+Several limitations bear on the interpretation of these results. First, the IEA ratification dataset covers 1950--2017; post-Paris Agreement dynamics, the COVID-19 period, and negotiations at COP26--28 are not reflected in the ratification profiles used to compute cosine similarity or construct the influence matrix. Second, the influence matrix is derived from treaty ratification cosine similarity, which captures alignment in formal commitments but not actual diplomatic capacity, economic leverage, or informal communication channels. Third, the vulnerability scores (ND-GAIN and WRI Aqueduct 4.0) reflect present-day conditions retroactively applied to historical treaty data; this temporal mismatch may introduce noise in the vulnerability weighting.
+
+Fourth, the reward function is a proxy for strategic influence, not a mechanistic model of negotiation dynamics. Countries that score highly on the tipping score are candidates for influential coalitions, not certified tipping agents. The framework surfaces hypotheses for diplomatic investigation rather than definitive recommendations. Fifth, six micro-states and recently admitted UN members lacking ND-GAIN coverage were assigned zero composite vulnerability scores, underestimating the vulnerability premium for some small nations. Sixth, the exhaustive search results in Section~\ref{sec:minor_coalitions} and the empirical threshold in Section~\ref{sec:empirical_tipping_threshold} were generated on the pre-correction pipeline ($n = 189$), while the RL results in Section~\ref{sec:results_realdata} use the corrected pipeline ($n = 175$). Score distributions are not directly comparable across these sections.
+
+\subsection*{Policy Implications}
+
+The framework developed here has several potential applications in climate governance. Coalition advisors could use the keystone country analysis to prioritise diplomatic outreach: Uruguay, Tunisia, Greece, and Algeria appear to offer the greatest leverage as coalition anchors across the widest range of high-scoring configurations. The cross-cluster diversity finding suggests that effective coalition building should deliberately seek members from geographically and institutionally disparate treaty communities, rather than deepening existing blocs. The vulnerability weighting mechanism provides a principled way to incorporate equity considerations into coalition design: by rewarding coalitions that include climate-vulnerable nations, the framework creates a strategic incentive for their inclusion that operates independently of moral arguments.
 
 \section{Future Work}
 An important direction for future research is the principled determination of the tipping threshold $\lambda_{\text{crit}}$. Rather than specifying this value exogenously, one could calibrate it against historical data, derive it from the eigenvalue spectrum of baseline systems, or define it via bifurcation analysis of systemic behaviour. Such methods would ground coalition tipping detection in empirical or dynamical benchmarks, increasing interpretability and robustness.
@@ -658,7 +689,14 @@ An important direction for future research is the principled determination of th
 
 \section{Conclusion}
 \label{sec:conclusion}
-Summarise findings, limitations, and next steps.
+
+This paper introduced a tensor-based game-theoretic framework for identifying catalytic coalitions in international climate policy negotiations. The central contribution is a formalisation of multi-actor strategic dynamics using third-order influence tensors, in which the joint action of pairs of countries drives the strategic updating of others --- a triadic interaction structure that bilateral frameworks miss. We showed analytically that coordinated action by a small coalition can shift the dominant Z-eigenvalue of the interaction tensor above a tipping threshold, inducing qualitative changes in the system's equilibrium cooperation level.
+
+Empirically, we operationalised this framework on a real-data pipeline spanning 175 non-G20 nations, treaty participation data from 263 multilateral environmental agreements (1950--2017), and composite vulnerability scores from the ND-GAIN Country Index and WRI Aqueduct 4.0. The core computational innovation is a REINFORCE policy gradient agent using Gumbel top-$K$ sampling, which resolves the coalition validity and reward sparsity problems that arise when applying standard Bernoulli-based policy networks to $N = 175$. The trained agent discovers 4{,}964 unique coalitions from 5{,}000 post-training samples, with the highest-scoring configuration achieving a tipping score of 22{,}229 --- a 14.7\% improvement over the best score in an equivalent random search.
+
+The discovered coalitions exhibit consistent structural patterns. High-scoring coalitions span 6--7 of 8 treaty-participation clusters, confirming that cross-cluster geographic and institutional diversity is a necessary condition for maximising tipping potential. Uruguay and Tunisia emerge as the leading keystone actors, appearing in 23\% and 20\% of top-100 coalitions respectively, driven by dense treaty ratification profiles and above-median climate vulnerability. The vulnerability weighting mechanism creates an algorithmic incentive for including Small Island Developing States and frontline-affected nations, aligning optimally-discovered coalitions with the normative demands of climate justice.
+
+This work provides a new computational lens for identifying under-recognised coalitions whose coordinated action could shift international climate governance outcomes. Future work should address the temporal limitation of the IEA dataset by incorporating post-2017 treaty data and COP outcome records, enrich the influence matrix with economic and diplomatic network features beyond co-ratification, and develop causal validation methods that test whether model-identified coalitions predict actual shifts in negotiating positions. The principled determination of the tipping threshold $\lambda_{\text{crit}}$ --- currently set exogenously at 30 --- through bifurcation analysis or empirical calibration against historical events remains an important open direction.
 
 \section*{Acknowledgments}
 Optional — thank collaborators, code reviewers, etc.
