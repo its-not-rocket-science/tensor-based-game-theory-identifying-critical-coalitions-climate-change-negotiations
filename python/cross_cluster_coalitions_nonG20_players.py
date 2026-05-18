@@ -1,111 +1,105 @@
 """
-Score all cross-cluster coalitions of minor players (non-G20) using:
-- Internal similarity (alignment)
-- Influence spread to others
-- Cluster diversity
+Exhaustive tipping score search over all minor-player (non-G20) coalitions.
 
-The code computes a tipping score for each coalition and saves the top 50.
-Adds progress tracking and timing.
+Uses corrected pipeline outputs — cosine similarity matrix and influence matrix
+from process_ratification_data.py, country list from minor_country_index.csv.
+This ensures consistent country resolution and G20 exclusion across all scripts.
+
+Scores each coalition C as:
+    TippingScore(C) = Alignment(C) * InfluenceSpread(C) * ClusterDiversity(C)
+
+where:
+    Alignment     = mean pairwise cosine similarity within C
+    InfluenceSpread = sum of influence_matrix[i,j] for i in C, j not in C
+    ClusterDiversity = number of distinct treaty-participation clusters in C
+
+Runs coalition sizes 2, 3, 4. After each size completes, results are written to:
+    outputs/minor_tipping_coalitions_2_to_{k}_members.csv
+
+Run in background for k=4 (37.7M combinations).
 """
 
 import itertools
 import time
-import pandas as pd
+from math import comb
 import numpy as np
-from sklearn.metrics.pairwise import cosine_similarity
+import pandas as pd
 
-# -------------------------------
-# Load Data
-# -------------------------------
+# -----------------------------------------------------------------------
+# Load corrected pipeline outputs
+# -----------------------------------------------------------------------
 
-# Load ratification matrix
-ratification_df = pd.read_excel("ratification data/Treaty data.xlsx", sheet_name="Data")
-ratification_matrix = ratification_df.pivot_table(
-    index="Country", columns="Name", values="ratified", aggfunc="max", fill_value=0
-)
+cos_sim = np.load("outputs/cosine_similarity.npy")
+influence_matrix = np.load("outputs/influence_matrix.npy")
 
-# Load clusters and define minor players
+minor_df = pd.read_csv("outputs/minor_country_index.csv")
+countries = minor_df["Country"].tolist()
+N = len(countries)
+
 cluster_df = pd.read_csv("outputs/table_countries_by_cluster.csv")
-g20_members = {
-    "Argentina", "Australia", "Brazil", "Canada", "China", "France", "Germany",
-    "India", "Indonesia", "Italy", "Japan", "Mexico", "Russia", "Saudi Arabia",
-    "South Africa", "South Korea", "Turkey", "United Kingdom", "United States",
-    "European Union"
-}
-cluster_df["IsMinor"] = ~cluster_df["Country"].isin(g20_members)
-
-# Prepare inputs
-minor_players = cluster_df[cluster_df["IsMinor"]]["Country"].tolist()
-countries = ratification_matrix.index.tolist()
-similarity_matrix = cosine_similarity(ratification_matrix)
-country_idx = {name: i for i, name in enumerate(countries)}
 cluster_map = cluster_df.set_index("Country")["ClusterLabel"].to_dict()
 
-# -------------------------------
-# Scoring Function
-# -------------------------------
+# Integer cluster IDs for fast diversity computation
+unique_clusters = sorted(set(cluster_map.values()))
+cluster_id = {c: i for i, c in enumerate(unique_clusters)}
+cluster_ids = np.array([cluster_id.get(cluster_map.get(countries[i], ""), 0)
+                        for i in range(N)], dtype=np.int32)
 
-def compute_tipping_score(coalition):
-    """
-    Compute score based on:
-    - average internal similarity
-    - influence spread to all non-members
-    - number of distinct clusters in the coalition
-    """
-    if len(coalition) < 2:
-        return 0.0
+# Precompute row sums for fast spread: spread = row_sums[coalition].sum() - sub_inf.sum()
+row_sums = influence_matrix.sum(axis=1)
 
-    indices = [country_idx[c] for c in coalition]
-    others = [i for i in range(len(countries)) if countries[i] not in coalition]
+print(f"Pipeline: {N} minor players, {len(unique_clusters)} clusters")
 
-    # Internal alignment
-    internal_sim = [
-        similarity_matrix[i][j]
-        for i, j in itertools.combinations(indices, 2)
-    ]
-    alignment = np.mean(internal_sim) if internal_sim else 0.0
+# -----------------------------------------------------------------------
+# Scoring
+# -----------------------------------------------------------------------
 
-    # Influence spread
-    spread = sum(similarity_matrix[o][j] for o in others for j in indices)
-
-    # Cluster diversity
-    clusters = {cluster_map.get(c, "Unknown") for c in coalition}
-    diversity = len(clusters)
-
+def score_coalition(c):
+    k = len(c)
+    sub_cos = cos_sim[np.ix_(c, c)]
+    alignment = (sub_cos.sum() - k) / (k * (k - 1))
+    sub_inf = influence_matrix[np.ix_(c, c)]
+    spread = row_sums[c].sum() - sub_inf.sum()
+    diversity = len(set(cluster_ids[i] for i in c))
     return alignment * spread * diversity
 
+# -----------------------------------------------------------------------
+# Search
+# -----------------------------------------------------------------------
 
-# -------------------------------
-# Exhaustive Search Over Combinations
-# -------------------------------
+BATCH = 100_000
+all_results = []
+start = time.time()
 
-results = []
-start_time = time.time()
-checked = 0
+for size in range(2, 5):
+    n_combos = comb(N, size)
+    combos = itertools.combinations(range(N), size)
 
-print(f"Starting coalition scoring for {len(minor_players)} minor players...")
+    print(f"\nSize {size}: {n_combos:,} combinations")
 
-for size in range(2, 6):  # Coalition sizes 2 to 5
-    combos = list(itertools.combinations(minor_players, size))
-    print(f"Checking {len(combos):,} combinations of size {size}...")
+    batch_results = []
+    checked = 0
 
-    for group in combos:
-        score = compute_tipping_score(group)
-        results.append((score, group))
+    for combo in combos:
+        s = score_coalition(list(combo))
+        c_names = tuple(countries[i] for i in combo)
+        batch_results.append((s, c_names))
         checked += 1
 
-        if checked % 10000 == 0:
-            elapsed = time.time() - start_time
-            print(f"Checked {checked:,} coalitions in {elapsed:.1f} seconds")
-            
-    results_df = pd.DataFrame(results, columns=["Score", "Coalition"])
-    csv_name = f"outputs/minor_tipping_coalitions_2_to_{size}_members.csv"
-    results_df.to_csv(csv_name, index=False)
-    print(f"\n✅ Interim results saved to {csv_name} at {time.time() - start_time:.1f} seconds.")
+        if checked % BATCH == 0:
+            elapsed = time.time() - start
+            rate = checked / elapsed
+            remaining = (n_combos - checked) / rate
+            print(f"  {checked:,}/{n_combos:,}  "
+                  f"{elapsed:.0f}s elapsed  ~{remaining:.0f}s remaining", flush=True)
 
-# Sort and export
-results.sort(reverse=True)
-top_df = pd.DataFrame(results[:50], columns=["Score", "Coalition"])
-top_df.to_csv("outputs/top_50_minor_tipping_coalitions_2_to_5_members.csv", index=False)
+    all_results.extend(batch_results)
 
-print(f"\n✅ Finished. Scored {checked:,} coalitions in {time.time() - start_time:.1f} seconds.")
+    # Write cumulative results after each size
+    df = pd.DataFrame(all_results, columns=["Score", "Coalition"])
+    out = f"outputs/minor_tipping_coalitions_2_to_{size}_members.csv"
+    df.to_csv(out, index=False)
+    elapsed = time.time() - start
+    print(f"  Saved {len(all_results):,} rows -> {out}  ({elapsed:.1f}s total)")
+
+print(f"\nDone. {len(all_results):,} coalitions in {time.time() - start:.1f}s")

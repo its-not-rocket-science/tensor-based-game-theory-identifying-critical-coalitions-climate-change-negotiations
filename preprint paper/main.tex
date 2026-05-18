@@ -344,9 +344,9 @@ However, coalitions that span multiple clusters may be less obvious—and more v
 To operationalise our tipping-point model on real data, we implemented an exhaustive search over potential coalitions of \textit{minor players}, defined here as countries not in the G20. For each coalition of size 2 to 4, we computed a composite tipping score that combines three criteria:
 
 \begin{enumerate}
-	\item \textbf{Internal similarity}: the average pairwise cosine similarity of treaty profiles within the coalition.
-	\item \textbf{Influence spread}: the total similarity from the coalition to non-members, measuring external impact potential.
-	\item \textbf{Cluster diversity}: the number of distinct clusters represented in the coalition.
+	\item \textbf{Alignment}: the mean pairwise cosine similarity of treaty ratification profiles within the coalition.
+	\item \textbf{Influence spread}: the total treaty co-ratification overlap from coalition members to all non-members, measured as $\sum_{i \in C,\, j \notin C} \mathbf{x}_i \cdot \mathbf{x}_j$ where $\mathbf{x}_i$ is the binary treaty vector of country $i$. This metric counts aggregate shared treaty commitments across the coalition boundary and is the same quantity used in the reinforcement learning reward function (Section~\ref{sec:results_rl}).
+	\item \textbf{Cluster diversity}: the number of distinct treaty-participation clusters represented in the coalition.
 \end{enumerate}
 
 Each coalition \( C \) received a score defined as:
@@ -361,11 +361,11 @@ Although conceptually simple, this approach scales combinatorially. Given \( n \
 \sum_{k=2}^4 \binom{n}{k} = O(n^4)
 \]
 
-coalitions to evaluate. With \( n = 189 \) minor players in the dataset, the number of 2--4 member coalitions is:
+coalitions to evaluate. With \( n = 175 \) minor players in the corrected pipeline, the number of 2--4 member coalitions is:
 \[
-\binom{189}{2} + \binom{189}{3} + \binom{189}{4} = 17{,}766 + 1{,}107{,}414 + 51{,}494{,}751 \approx 52.6 \text{ million}
+\binom{175}{2} + \binom{175}{3} + \binom{175}{4} = 15{,}225 + 877{,}975 + 37{,}752{,}925 \approx 38.6 \text{ million}
 \]
-This search completed, producing a 3.7~GB output file. Extending to 5-member coalitions would add a further 1.9~billion combinations, which was not attempted.
+The 2- and 3-member searches complete in under one minute. The 4-member search completes in approximately 30 minutes. Extending to 5-member coalitions would add a further 1.3~billion combinations and was not attempted.
 
 \paragraph{Scalability.}
 For larger coalition sizes, exhaustive enumeration becomes intractable. We address this in subsequent sections using greedy forward selection and reinforcement learning, both of which discover high-scoring coalitions without full enumeration.
@@ -382,12 +382,12 @@ To this end, we computed a composite score for all 2–3 member coalitions of mi
 where:
 \begin{itemize}
 	\item \textbf{Alignment(C)} is the mean pairwise cosine similarity within the coalition,
-	\item \textbf{InfluenceSpread(C)} is the total similarity from coalition members to all non-members,
+	\item \textbf{InfluenceSpread(C)} is the total treaty co-ratification overlap from coalition members to all non-members ($\sum_{i \in C, j \notin C} \mathbf{x}_i \cdot \mathbf{x}_j$),
 	\item \textbf{ClusterDiversity(C)} counts the number of distinct ratification clusters represented in \( C \).
 \end{itemize}
 
 \paragraph{Distribution Analysis.}
-As shown in Figure~\ref{fig:score_distribution}, the tipping scores form a positively skewed distribution with a long upper tail. The mean score is 336.6 with a standard deviation of 133.2. The top 1\% of coalitions exceed a score of 593.5, reaching up to 737.4.
+As shown in Figure~\ref{fig:score_distribution}, the tipping scores form a positively skewed distribution with a long upper tail. The mean score across all 893{,}200 two- and three-member coalitions is 14{,}190 with a standard deviation of 4{,}678. The top 1\% of coalitions exceed a score of 24{,}599, reaching up to 33{,}527.
 
 \begin{figure}[htbp]
 	\centering
@@ -400,14 +400,14 @@ As shown in Figure~\ref{fig:score_distribution}, the tipping scores form a posit
 \end{figure}
 
 \paragraph{Tipping Threshold Definition.}
-We designate the 99th percentile value (593.5) as a data-driven tipping threshold. Coalitions that exceed this benchmark demonstrate unusually high strategic cohesion and influence potential. These meet the operational criteria of a tipping coalition, as originally formalised.
+We designate the 99th percentile value (24{,}599) as a data-driven tipping threshold. Coalitions that exceed this benchmark demonstrate unusually high strategic cohesion and influence potential. These meet the operational criteria of a tipping coalition, as originally formalised.
 
 \paragraph{Examples.}
 One illustrative coalition exceeding this threshold is:
 \[
-\texttt{(Democratic People's Republic of Korea, Papua New Guinea, Sri Lanka)}
+\texttt{(Spain, Croatia, Morocco)}
 \]
-with a tipping score of 737.4. Despite low individual global influence, these countries exhibit high alignment and cross-cluster reach, making them plausible catalysts in a cooperative cascade under bounded rationality.
+with a tipping score of 33{,}527. These three countries span Southern Europe and North Africa, exhibit high pairwise treaty alignment, and provide strong cross-cluster influence reach, making them a plausible catalytic grouping under the tipping framework.
 
 The full list of top-scoring coalitions is available in the supplementary dataset (compressed):
 \begin{quote}
