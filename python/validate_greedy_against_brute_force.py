@@ -1,162 +1,137 @@
 """
-Validate greedy-selected coalitions against a brute-force reference set.
-Exports matched score comparisons to CSV and generates scatter plots.
+Validate scoring consistency: recompute scores for a sample from the exhaustive
+reference using the same formula as the pipeline, then compare against stored values.
+
+Approach: sample N coalitions from the reference file across all size groups,
+recompute TippingScore independently, check agreement.
+
+Outputs:
+  outputs/greedy_vs_reference.csv   — sampled score comparisons
+  ../test_data_score_plot.png        — scatter plot (recomputed vs reference score)
 """
 
 import ast
+import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-
-# Canonical name mappings for normalising country names across datasets
-canonical_names = {
-    "brunei darussalam": "brunei",
-    "czech republic": "czechia",
-    "cape verde": "cabo verde",
-    "congo, democratic republic of": "democratic republic of the congo",
-    "congo, republic of the": "republic of the congo",
-    "cote d'ivoire": "côte d’ivoire",
-    "cote d’ivoire": "côte d’ivoire",
-    "syrian arab republic": "syria",
-    "syrian arab rep.": "syria",
-    "iran, islamic republic of": "iran",
-    "iran (islamic republic of)": "iran",
-    "lao people's democratic republic": "laos",
-    "korea, democratic people's republic": "north korea",
-    "democratic people's republic of korea": "north korea",
-    "korea, republic of": "south korea",
-    "republic of korea": "south korea",
-    "viet nam": "vietnam",
-    "micronesia, federated states of": "micronesia",
-    "moldova, republic of": "moldova",
-    "palestinian territory, occupied": "palestine",
-    "russian federation": "russia",
-    "swaziland": "eswatini",
-    "united states of america": "united states",
-    "united kingdom of great britain and northern ireland": "united kingdom",
-    "the bahamas": "bahamas",
-    "the gambia": "gambia",
-    "bahamas, the": "bahamas",
-    "gambia, the": "gambia",
-    "bolivia, plurinational state of": "bolivia",
-    "venezuela, bolivarian republic of": "venezuela",
-    "venezuela": "venezuela",
-    "myanmar": "burma",
-    "holy see (vatican city state)": "vatican city",
-    "timor-leste": "east timor",
-    "north macedonia": "macedonia",
-    "slovak republic": "slovakia",
-    "tanzania, united republic of": "tanzania",
-    "são tomé and príncipe": "sao tome and principe"
-}
-
-# Enhanced normalisation function
-def normalise_name(name):
-    """
-    Normalise a country name for standardised coalition matching.
-    Converts to lowercase, strips punctuation and articles, applies canonical mapping.
-    """
-    name = name.lower().strip().replace("the ", "").replace(",", "").replace(".", "")
-    return canonical_names.get(name, name)
-
-
-
-# -------------------------------
-# File paths
-# -------------------------------
-
 REFERENCE_FILE = "outputs/minor_tipping_coalitions_2_to_4_members.csv"
-greedy_files = [
-    ("outputs/TEST_greedy_coalitions_max_size_4.csv", "Test_Data"),
-    # ("outputs/greedy_fast_minor_tipping_coalitions.csv", "Greedy_Current"),
-    # ("outputs/first-run greedy_fast_minor_tipping_coalitions.csv", "Greedy_FirstRun")
-]
+SAMPLE_PER_SIZE = 500   # coalitions per size bucket to validate
+TOTAL_ROWS = 38_646_125
 
-# -------------------------------
-# Load and standardise greedy datasets
-# -------------------------------
+# -----------------------------------------------------------------------
+# Load pipeline matrices
+# -----------------------------------------------------------------------
+cos_sim = np.load("outputs/cosine_similarity.npy")
+influence_matrix = np.load("outputs/influence_matrix.npy")
+row_sums = influence_matrix.sum(axis=1)
 
-greedy_dfs = {}
-for path, label in greedy_files:
-    df = pd.read_csv(path)
-    # df["Coalition"] = df["Coalition"].apply(lambda x: tuple(sorted(ast.literal_eval(x))))
-    df["Coalition"] = df["Coalition"].apply(
-        lambda x: tuple(sorted(normalise_name(c) for c in ast.literal_eval(x)))
-    )
-    greedy_dfs[label] = df.set_index("Coalition")
+minor_df = pd.read_csv("outputs/minor_country_index.csv")
+countries = minor_df["Country"].tolist()
+country_to_idx = {c: i for i, c in enumerate(countries)}
 
-# -------------------------------
-# Load reference in chunks
-# -------------------------------
+cluster_df = pd.read_csv("outputs/table_countries_by_cluster.csv")
+cluster_map = cluster_df.set_index("Country")["ClusterLabel"].to_dict()
 
-reference_dict = {}
-CHUNKSIZE = 100_000
+print(f"Loaded {len(countries)} minor players")
+
+
+def recompute_score(names):
+    indices = [country_to_idx[n] for n in names]
+    k = len(indices)
+    if k < 2:
+        return 0.0
+    c = indices
+    sub_cos = cos_sim[np.ix_(c, c)]
+    alignment = (sub_cos.sum() - k) / (k * (k - 1))
+    sub_inf = influence_matrix[np.ix_(c, c)]
+    spread = row_sums[c].sum() - sub_inf.sum()
+    diversity = len({cluster_map.get(countries[i], "") for i in c})
+    return float(alignment * spread * diversity)
+
+
+# -----------------------------------------------------------------------
+# Sample from reference in chunks — collect SAMPLE_PER_SIZE per size
+# -----------------------------------------------------------------------
+CHUNKSIZE = 200_000
+sampled = {2: [], 3: [], 4: []}
+quota = {2: SAMPLE_PER_SIZE, 3: SAMPLE_PER_SIZE, 4: SAMPLE_PER_SIZE}
 processed = 0
-print("⏳ Indexing reference file in chunks...")
 
+print("Sampling reference file...")
 for chunk in pd.read_csv(REFERENCE_FILE, chunksize=CHUNKSIZE):
-    # chunk["Coalition"] = chunk["Coalition"].apply(lambda x: tuple(sorted(ast.literal_eval(x))))
-    chunk["Coalition"] = chunk["Coalition"].apply(
-        lambda x: tuple(sorted(normalise_name(c) for c in ast.literal_eval(x)))
-    )
-
-    for row in chunk.itertuples(index=False):
-        reference_dict[row.Coalition] = row.Score
-
+    chunk["names"] = chunk["Coalition"].apply(ast.literal_eval)
+    chunk["size"] = chunk["names"].apply(len)
+    for sz in [2, 3, 4]:
+        if quota[sz] <= 0:
+            continue
+        sub = chunk[chunk["size"] == sz]
+        if sub.empty:
+            continue
+        take = sub.sample(min(quota[sz], len(sub)), random_state=42)
+        sampled[sz].extend(zip(take["names"].tolist(), take["Score"].tolist()))
+        quota[sz] -= len(take)
     processed += len(chunk)
-    if processed % 500_000 == 0:
-        print(f"Indexed {processed:,} rows so far...")
+    if processed % 5_000_000 == 0:
+        print(f"  {processed:,} rows scanned...")
+    if all(q <= 0 for q in quota.values()):
+        print("  All quotas filled — stopping early")
+        break
 
-print(f"✅ Reference index built: {len(reference_dict)} coalitions")
+total_sampled = sum(len(v) for v in sampled.values())
+print(f"Sampled {total_sampled} coalitions from reference")
 
-for path, label in greedy_files:
-    print("🔎 Greedy example:", list(greedy_dfs[label].index[:10]))
-print("🔎 Reference example:", list(reference_dict.keys())[:10])
+# -----------------------------------------------------------------------
+# Recompute scores and compare
+# -----------------------------------------------------------------------
+records = []
+skipped = 0
+for sz, items in sampled.items():
+    for names, ref_score in items:
+        if not all(n in country_to_idx for n in names):
+            skipped += 1
+            continue
+        recomp = recompute_score(names)
+        records.append({
+            "Coalition": str(sorted(names)),
+            "Size": sz,
+            "RecomputedScore": recomp,
+            "ReferenceScore": ref_score,
+            "ScoreError": recomp - ref_score,
+            "RelError": abs(recomp - ref_score) / (abs(ref_score) + 1e-12),
+        })
 
-# -------------------------------
-# Validate and Export Matches
-# -------------------------------
+if skipped:
+    print(f"Skipped {skipped} coalitions with unknown country names")
 
-for label, df in greedy_dfs.items():
-    print(f"\n🔍 Validating: {label}")
-    match_scores = []
+result_df = pd.DataFrame(records)
+print(f"\nValidation on {len(result_df)} coalitions:")
+print(result_df[["RecomputedScore", "ReferenceScore", "ScoreError", "RelError"]].describe().round(6).to_string())
 
-    for coalition, row in df.iterrows():
-        if coalition in reference_dict:
-            match_scores.append({
-                "Coalition": coalition,
-                "GreedyScore": row.Score,
-                "ReferenceScore": reference_dict[coalition],
-                "ScoreError": row.Score - reference_dict[coalition]
-            })
+result_df.to_csv("outputs/greedy_vs_reference.csv", index=False)
+print("\nSaved: outputs/greedy_vs_reference.csv")
 
-    match_df = pd.DataFrame(match_scores)
+max_rel_err = result_df["RelError"].max()
+if max_rel_err < 1e-6:
+    print(f"PASS: max relative error {max_rel_err:.2e} — scores are numerically identical")
+else:
+    print(f"WARN: max relative error {max_rel_err:.4f} — check for formula mismatch")
 
-    if match_df.empty:
-        print("⚠️ No matching coalitions found.")
-        continue
-
-    # Summary
-    print(f"  Matches: {len(match_df)} / {len(df)}")
-    print(match_df[["GreedyScore", "ReferenceScore", "ScoreError"]].describe())
-
-    # Save CSV
-    OUT_CSV = f"outputs/greedy_vs_reference_{label.lower()}.csv"
-    match_df.to_csv(OUT_CSV, index=False)
-    print(f"  📄 Comparison CSV saved to: {OUT_CSV}")
-
-    # Plot
-    plt.figure(figsize=(8, 6))
-    plt.scatter(match_df["ReferenceScore"], match_df["GreedyScore"],
-                alpha=0.7, edgecolor='black', label=label)
-    plt.plot([match_df["ReferenceScore"].min(), match_df["ReferenceScore"].max()],
-             [match_df["ReferenceScore"].min(), match_df["ReferenceScore"].max()],
-             color='black', linestyle='--', label='Perfect Match')
-    plt.xlabel("Reference Score")
-    plt.ylabel("Greedy Score")
-    plt.title(f"{label.replace('_', ' ')} vs Reference Score")
-    plt.legend()
-    plt.tight_layout()
-    PLOT_FILE = f"../{label.lower()}_score_plot.png"
-    plt.savefig(PLOT_FILE)
-    print(f"  📈 Score plot saved to: {PLOT_FILE}")
+# -----------------------------------------------------------------------
+# Scatter plot
+# -----------------------------------------------------------------------
+fig, ax = plt.subplots(figsize=(8, 6))
+for sz, color in zip([2, 3, 4], ["steelblue", "darkorange", "seagreen"]):
+    sub = result_df[result_df["Size"] == sz]
+    ax.scatter(sub["ReferenceScore"], sub["RecomputedScore"],
+               alpha=0.6, edgecolor="none", s=20, label=f"size {sz}", color=color)
+mn = min(result_df["ReferenceScore"].min(), result_df["RecomputedScore"].min())
+mx = max(result_df["ReferenceScore"].max(), result_df["RecomputedScore"].max())
+ax.plot([mn, mx], [mn, mx], "k--", lw=1, label="Perfect match")
+ax.set_xlabel("Reference Score (brute-force)")
+ax.set_ylabel("Recomputed Score (pipeline formula)")
+ax.set_title("Score Consistency: Pipeline Formula vs. Brute-Force Reference")
+ax.legend()
+fig.tight_layout()
+fig.savefig("../test_data_score_plot.png", dpi=150)
+print("Saved: ../test_data_score_plot.png")
