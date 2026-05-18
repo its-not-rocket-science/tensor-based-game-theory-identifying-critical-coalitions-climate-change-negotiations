@@ -29,19 +29,34 @@
 \maketitle
 
 \begin{abstract}
-We introduce a tensor-based extension of multiplayer game theory to model how small coalitions of relatively low-influence actors can tip the equilibrium in climate policy negotiations. Traditional game-theoretic approaches struggle to capture the high-dimensional, nonlinear, and asymmetrical nature of international climate interactions. Our formulation uses influence-weighted payoff tensors to describe heterogeneous strategic interactions and defines a tipping function to identify coalitions capable of shifting systemic outcomes. Through simulation, we demonstrate how certain small coalitions can induce phase transitions in policy adoption even when larger actors act conservatively. This framework provides a new lens for identifying catalytic coalitions in climate governance and offers computational tools for simulating their dynamics.
+We introduce a tensor-based extension of multiplayer game theory to model how small coalitions of relatively low-influence actors can tip the equilibrium in climate policy negotiations. Traditional game-theoretic approaches struggle to capture the high-dimensional, nonlinear, and asymmetric nature of international climate interactions. Our formulation represents strategic influence as a third-order tensor $\mathcal{T} \in \mathbb{R}^{N \times N \times N}$, where each entry quantifies the joint influence of two actors on a third, and defines a tipping score to identify coalitions capable of shifting systemic outcomes through coordinated cooperation.
+
+We validate the framework analytically on small synthetic systems, demonstrating eigenvalue-driven phase transitions when minor-player coalitions are activated, and computationally on a real-data pipeline covering 175 non-G20 nations across 263 multilateral environmental agreements (1950--2017). Vulnerability scores from the ND-GAIN Country Index and WRI Aqueduct 4.0 are integrated into the reward function, creating an incentive for including frontline-affected nations in optimal coalitions. A REINFORCE policy gradient agent using Gumbel top-$K$ sampling discovers coalitions that outperform exhaustive random search by 14.7\%, achieving a peak tipping score of 22,229 across 4,964 unique configurations. Keystone country analysis identifies Uruguay, Tunisia, Greece, and Algeria as consistently high-leverage coalition anchors. We find that cross-cluster geographic diversity spanning at least 6 of 8 treaty-participation clusters is a necessary condition for top-scoring coalitions, operationalising the theoretical prediction that the most strategically valuable alliances are the least obvious ones.
 \end{abstract}
 
 \section{Introduction}
 \label{sec:intro}
-Climate change negotiations involve numerous heterogeneous actors, from nation-states to regional coalitions and private sector alliances. Despite large-scale asymmetries in power and emissions, small coalitions have, at times, shifted global momentum. We propose a new mathematical and computational approach to identify such coalitions.
+
+Climate change negotiations involve numerous heterogeneous actors --- from nation-states to regional coalitions and private sector alliances. Despite large-scale asymmetries in power and emissions, small coalitions have repeatedly shifted global momentum in ways that aggregate power metrics would not predict. The Alliance of Small Island States, representing under 1\% of global emissions, helped anchor the 1.5\textdegree C temperature goal in the Paris Agreement. The High Ambition Coalition catalysed ambitious transparency language across a far larger set of parties. Understanding \emph{which} small coalitions carry this kind of systemic leverage, and why, is a question that existing game-theoretic frameworks have not satisfactorily addressed.
+
+Standard cooperative game theory identifies stable allocations and pivotal players, but is not designed to model dynamic influence propagation through a heterogeneous network. Non-cooperative Nash equilibrium models assume symmetric information and discrete action spaces ill-suited to the continuous, norm-driven adjustment of multilateral diplomacy. We propose that the interaction structure of climate negotiations is fundamentally triadic: each country's strategic update depends not on bilateral relationships alone, but on how \emph{pairs} of other actors jointly shape the normative environment. Third-order tensors are the natural representation for this structure.
+
+This paper makes the following contributions:
+\begin{enumerate}
+    \item A formal tensor-based dynamical model of climate strategy interactions, with analytical conditions for coalition-induced tipping (Sections~\ref{sec:math}--\ref{sec:simulation}).
+    \item A hierarchical clustering analysis of 189 non-G20 nations across 263 multilateral treaties, identifying eight treaty-participation communities and motivating cross-cluster coalition search (Section~\ref{sec:clustering}).
+    \item A real-data pipeline integrating treaty participation, ND-GAIN vulnerability, and WRI Aqueduct water stress data for 175 non-G20 nations, with a corrected country-name resolver ensuring consistent joins across heterogeneous datasets (Section~\ref{sec:results_realdata}).
+    \item A REINFORCE policy gradient agent using Gumbel top-$K$ sampling that scales coalition discovery to $N=175$ without the reward sparsity problems of Bernoulli-based approaches, achieving a 14.7\% improvement over random search (Section~\ref{sec:results_realdata}).
+\end{enumerate}
+
+The paper is organised as follows. Section~\ref{sec:background} provides empirical motivation. Section~\ref{sec:related} reviews related work. Section~\ref{sec:math} presents the mathematical framework. Sections~\ref{sec:simulation} and~\ref{sec:clustering} describe simulation experiments and clustering analysis respectively. Section~\ref{sec:results_realdata} presents real-data results. Section~\ref{sec:discussion} discusses implications and limitations, and Section~\ref{sec:conclusion} concludes.
 
 \section{Background and Motivation}
 \label{sec:background}
 
 International climate negotiations operate across two distinct timescales. On the longer scale, formal agreements such as the Kyoto Protocol (1997) and the Paris Agreement (2015) establish binding or voluntary emissions commitments among all UNFCCC parties. On the shorter scale, specific negotiation rounds are shaped by informal diplomatic coalitions that advocate for particular positions, draft text, and build political momentum. The history of these negotiations reveals a recurring pattern: small, strategically assembled coalitions of relatively low-power nations have repeatedly outperformed their nominal influence, shifting outcomes in ways that larger blocs could not.
 
-The Alliance of Small Island States (AOSIS) is perhaps the most cited example. Despite representing fewer than 1\% of global greenhouse gas emissions, AOSIS was instrumental in establishing the 1.5\textdegree C aspirational target in the Paris Agreement, a position far from settled at the outset of COP21~\cite{ourbetterworld_aosis}. Similarly, the High Ambition Coalition, a cross-regional grouping of approximately 100 parties, emerged during COP21 to push for ambitious language on long-term temperature goals and transparency mechanisms. These cases illustrate that coalition effectiveness depends not on aggregate emissions or economic power, but on alignment, geographic diversity, and strategic timing.
+The Alliance of Small Island States (AOSIS) is perhaps the most cited example. Despite representing fewer than 1\% of global greenhouse gas emissions, AOSIS was instrumental in establishing the 1.5\textdegree C aspirational target in the Paris Agreement, a position far from settled at the outset of COP21~\cite{aosis2023}. Similarly, the High Ambition Coalition, a cross-regional grouping of approximately 100 parties, emerged during COP21 to push for ambitious language on long-term temperature goals and transparency mechanisms. These cases illustrate that coalition effectiveness depends not on aggregate emissions or economic power, but on alignment, geographic diversity, and strategic timing.
 
 This observation raises a formal question: given the multi-dimensional strategic landscape of climate negotiations, which properties characterise small coalitions with disproportionate influence? Standard approaches from cooperative game theory, such as Shapley values and core analysis, address payoff allocation but are not designed to model the dynamic propagation of influence through a heterogeneous network of actors. Non-cooperative approaches based on Nash equilibrium assume symmetric information and well-defined action spaces that do not naturally accommodate the continuous, norm-driven adjustment observed in multilateral diplomacy~\cite{barrett1994self, nordhaus2015climate}.
 
@@ -441,9 +456,9 @@ Figure~\ref{fig:greedy_coalition_network} presents a network of coalition member
 To assess the empirical plausibility of the coalitions identified by our model, we compared our top-ranked minor-player coalitions against known international climate groupings:
 
 \begin{itemize}
-	\item \textbf{High Ambition Coalition (HAC)} — a diplomatic bloc that successfully pushed for the 1.5°C temperature goal in the Paris Agreement;
-	\item \textbf{Alliance of Small Island States (AOSIS)} — a long-standing coalition of climate-vulnerable island nations;
-	\item \textbf{Fossil Fuel Non-Proliferation Treaty (FF-NPT) Initiative} — a recent campaign led by vulnerable nations seeking to phase out fossil fuel production.
+	\item \textbf{High Ambition Coalition (HAC)}~\cite{hochstetler2019ambition} — a diplomatic bloc that successfully pushed for the 1.5°C temperature goal in the Paris Agreement;
+	\item \textbf{Alliance of Small Island States (AOSIS)}~\cite{aosis2023} — a long-standing coalition of climate-vulnerable island nations;
+	\item \textbf{Fossil Fuel Non-Proliferation Treaty (FF-NPT) Initiative}~\cite{ffnpt2024} — a recent campaign led by vulnerable nations seeking to phase out fossil fuel production.
 \end{itemize}
 
 We found that several of our model-identified coalitions contain members from these influential real-world initiatives. For example, \textit{Fiji}, \textit{Tuvalu}, \textit{Papua New Guinea}, and \textit{The Bahamas} — all prominent AOSIS or FF-NPT members — appear frequently in high-scoring coalitions (see Table~\ref{tab:matched_coalitions}).
@@ -684,7 +699,21 @@ Fourth, the reward function is a proxy for strategic influence, not a mechanisti
 The framework developed here has several potential applications in climate governance. Coalition advisors could use the keystone country analysis to prioritise diplomatic outreach: Uruguay, Tunisia, Greece, and Algeria appear to offer the greatest leverage as coalition anchors across the widest range of high-scoring configurations. The cross-cluster diversity finding suggests that effective coalition building should deliberately seek members from geographically and institutionally disparate treaty communities, rather than deepening existing blocs. The vulnerability weighting mechanism provides a principled way to incorporate equity considerations into coalition design: by rewarding coalitions that include climate-vulnerable nations, the framework creates a strategic incentive for their inclusion that operates independently of moral arguments.
 
 \section{Future Work}
-An important direction for future research is the principled determination of the tipping threshold $\lambda_{\text{crit}}$. Rather than specifying this value exogenously, one could calibrate it against historical data, derive it from the eigenvalue spectrum of baseline systems, or define it via bifurcation analysis of systemic behaviour. Such methods would ground coalition tipping detection in empirical or dynamical benchmarks, increasing interpretability and robustness.
+
+\paragraph{Threshold calibration.}
+The tipping threshold $\lambda_{\text{crit}}$ is currently set exogenously. A principled alternative would calibrate it against historical negotiation outcomes --- identifying the eigenvalue regime corresponding to known episodes of coalition-induced momentum shifts (e.g., COP21 or the Kyoto Protocol negotiations). Alternatively, $\lambda_{\text{crit}}$ could be derived analytically from the saddle-node bifurcation structure of the dynamical system in Equation~\eqref{eq:dynamics}.
+
+\paragraph{Updated data pipeline.}
+The IEA treaty dataset ends in 2017. Extending the pipeline to include post-Paris Agreement ratifications, nationally determined contributions (NDCs), and COP26--28 outcomes would capture recent realignments, including the growing influence of climate-vulnerable nations and the emergence of new regional blocs. Dynamic models in which the ratification matrix evolves over time would allow trajectory-based coalition analysis.
+
+\paragraph{Richer influence representations.}
+The current influence matrix is derived from cosine similarity on treaty ratification profiles. Incorporating economic trade networks, diplomatic co-signatories, and UN voting records would yield a multi-modal influence tensor that better reflects actual negotiation leverage. Weighted combinations of these signals could be learned from historical coalition formation data.
+
+\paragraph{Causal validation.}
+Model-identified coalitions should be tested against actual negotiation outcomes. A promising approach is to check whether high-scoring coalitions identified from pre-COP treaty data preceded measurable shifts in the positions of major actors at subsequent COPs. This would transform the framework from a descriptive tool into a predictive one.
+
+\paragraph{Dynamic coalition formation.}
+The current model treats coalition composition as a one-shot optimisation. Extending this to a sequential game, where coalition membership evolves across negotiation rounds and actors respond strategically to each other's coalition decisions, would capture the temporal dynamics of diplomatic alliance formation.
 
 
 \section{Conclusion}
