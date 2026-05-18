@@ -30,15 +30,15 @@ REWARD_THRESHOLD = 500.0  # No reward unless tipping score ≥ threshold (None t
 # -------------------------------
 # Load data
 # -------------------------------
-country_df = pd.read_csv("minor_country_index.csv")
+country_df = pd.read_csv("outputs/minor_country_index.csv")
 countries = country_df["Country"].tolist()
 index_to_country = {i: c for i, c in enumerate(countries)}
 N = len(countries)
 
-cos_sim = np.load("cosine_similarity.npy")
-influence_matrix = np.load("influence_matrix.npy")
+cos_sim = np.load("outputs/cosine_similarity.npy")
+influence_matrix = np.load("outputs/influence_matrix.npy")
 
-cluster_df = pd.read_csv("table_countries_by_cluster.csv")
+cluster_df = pd.read_csv("outputs/table_countries_by_cluster.csv")
 cluster_map = cluster_df.set_index("Country")["ClusterLabel"].to_dict()
 
 # -------------------------------
@@ -168,5 +168,5 @@ if __name__ == "__main__":
 
     # Export learned coalitions
     coalitions = sample_learned_coalitions(model)
-    pd.DataFrame({"Coalition": coalitions}).drop_duplicates().to_csv("rl_learned_coalitions_realdata.csv", index=False)
-    print("✅ Exported: rl_learned_coalitions_realdata.csv")
+    pd.DataFrame({"Coalition": coalitions}).drop_duplicates().to_csv("outputs/rl_learned_coalitions_realdata.csv", index=False)
+    print("✅ Exported: outputs/rl_learned_coalitions_realdata.csv")

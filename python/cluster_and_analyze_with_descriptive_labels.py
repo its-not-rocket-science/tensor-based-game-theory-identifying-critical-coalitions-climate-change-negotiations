@@ -8,6 +8,7 @@ Outputs:
 """
 
 import os
+import sys
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -19,12 +20,34 @@ from sklearn.decomposition import PCA
 from scipy.cluster.hierarchy import linkage, fcluster, dendrogram
 import textwrap
 
+sys.path.insert(0, os.path.dirname(__file__))
+from country_name_resolver import HISTORICAL_ENTITIES, resolve_to_iso3
+
 # -------------------------------
 # Load Data
 # -------------------------------
 
 excel_path = "ratification data/Treaty data.xlsx"
 ratification_df = pd.read_excel(excel_path, sheet_name="Data")
+
+# Resolve country names to ISO3; drop historical entities and unresolvable rows
+ratification_df["ISO3"] = ratification_df["Country"].apply(resolve_to_iso3)
+n_excluded = ratification_df[ratification_df["ISO3"].isna()]["Country"].nunique()
+print(f"Excluded {n_excluded} historical/unresolvable entities from clustering.")
+ratification_df = ratification_df.dropna(subset=["ISO3"])
+
+# Normalise country names: treaty data has casing inconsistencies
+# (e.g. "Cote d'Ivoire" and "Cote d'ivoire" as separate rows).
+# Pick the lexicographically-first name per ISO3 — uppercase sorts before lowercase
+# so "Cote d'Ivoire" is chosen over "Cote d'ivoire", etc.
+iso3_to_canonical = (
+    ratification_df.drop_duplicates("Country")
+    .sort_values("Country")
+    .groupby("ISO3")["Country"]
+    .first()
+    .to_dict()
+)
+ratification_df["Country"] = ratification_df["ISO3"].map(iso3_to_canonical)
 
 # Use UNSD subregion for each country
 country_subregion = (
