@@ -128,20 +128,23 @@ def tipping_score_reward(coalition_indices):
 
 
 class PolicyNetwork(nn.Module):
-    """A simple sigmoid-based policy network for coalition inclusion probabilities."""
+    """Sigmoid policy network for coalition inclusion probabilities.
 
-    def __init__(self, n):
+    Bias is initialised so baseline inclusion probability = SIZE_CAP / N,
+    giving expected coalition size near the cap and allowing gradient updates
+    from the first epoch (random init gives ~N/2 selections, all rejected).
+    """
+
+    def __init__(self, n, target_p=None):
         super().__init__()
         self.fc = nn.Linear(n, n)
+        if target_p is not None:
+            # logit(p) = log(p / (1-p)); set bias so sigmoid(bias) ≈ target_p
+            import math
+            logit_p = math.log(target_p / (1.0 - target_p))
+            nn.init.constant_(self.fc.bias, logit_p)
 
     def forward(self, x):
-        """
-        Forward pass through the policy network.
-        Args:
-            x (Tensor): Input state vector.
-        Returns:
-            Tensor: Inclusion probabilities for each player.
-        """
         return torch.sigmoid(self.fc(x))
 
 # -------------------------------
@@ -161,28 +164,36 @@ def train_rl_policy(n_nations=N, epochs=EPOCHS, lr=0.01):
     Returns:
         tuple: Trained model, reward history, coalition sizes, and probability matrix.
     """
-    train_model = PolicyNetwork(n_nations)
+    target_p = (SIZE_CAP / n_nations) if SIZE_CAP else (4.0 / n_nations)
+    train_model = PolicyNetwork(n_nations, target_p=target_p)
     optimizer = optim.Adam(train_model.parameters(), lr=lr)
 
     train_rewards, train_sizes, train_prob_history = [], [], []
+    baseline = 0.0
+    baseline_alpha = 0.05
+    cap = SIZE_CAP if SIZE_CAP else 8
 
     for _ in range(epochs):
         state = torch.rand(n_nations)
         probs = train_model(state)
         train_prob_history.append(probs.detach().numpy())
 
-        mask = torch.bernoulli(probs).bool()
-        coalition = torch.where(mask)[0].tolist()
-
-        if len(coalition) < 2 or (SIZE_CAP and len(coalition) > SIZE_CAP):
-            continue
+        # Gumbel top-K: sample exactly k countries without replacement.
+        # Guarantees valid coalition size every epoch — no wasted steps.
+        k = torch.randint(2, cap + 1, (1,)).item()
+        gumbel = -torch.log(-torch.log(torch.rand(n_nations) + 1e-10) + 1e-10)
+        perturbed = torch.log(probs + 1e-10) + gumbel
+        coalition = torch.topk(perturbed, k).indices.tolist()
 
         reward = tipping_score_reward(coalition)
         if reward == 0.0:
             continue
 
-        log_probs = torch.log(probs[mask])
-        loss = -log_probs.sum() * reward
+        baseline = (1 - baseline_alpha) * baseline + baseline_alpha * reward
+        advantage = reward - baseline
+
+        log_probs = torch.log(probs[torch.tensor(coalition)])
+        loss = -log_probs.sum() * advantage
 
         optimizer.zero_grad()
         loss.backward()
@@ -198,27 +209,23 @@ def train_rl_policy(n_nations=N, epochs=EPOCHS, lr=0.01):
 # -------------------------------
 
 
-def sample_learned_coalitions(sample_model, threshold=0.5, n_samples=1000):
+def sample_learned_coalitions(sample_model, n_samples=5000):
     """
-    Sample coalitions from the trained policy using a fixed probability threshold.
-
-    Args:
-        model (nn.Module): Trained policy network.
-        threshold (float): Probability cutoff for inclusion.
-        n_samples (int): Number of samples to draw.
-
-    Returns:
-        list[tuple]: List of sampled coalition tuples.
+    Sample coalitions using Gumbel top-K, consistent with training.
+    Each sample draws a random valid size k in [2, SIZE_CAP].
     """
+    cap = SIZE_CAP if SIZE_CAP else 8
     sample_coalitions = []
     with torch.no_grad():
         for _ in range(n_samples):
             state = torch.rand(N)
             probs = sample_model(state)
-            selected = (probs > threshold).nonzero().flatten().tolist()
-            if 2 <= len(selected) <= (SIZE_CAP or N):
-                named = tuple(sorted(index_to_country[i] for i in selected))
-                sample_coalitions.append(named)
+            k = torch.randint(2, cap + 1, (1,)).item()
+            gumbel = -torch.log(-torch.log(torch.rand(N) + 1e-10) + 1e-10)
+            perturbed = torch.log(probs + 1e-10) + gumbel
+            selected = torch.topk(perturbed, k).indices.tolist()
+            named = tuple(sorted(index_to_country[i] for i in selected))
+            sample_coalitions.append(named)
     return sample_coalitions
 
 
@@ -240,11 +247,11 @@ if __name__ == "__main__":
     plt.title("Avg Inclusion Probabilities")
     plt.tight_layout()
     plt.savefig("../rl_realdata_training_summary.png", dpi=300)
-    plt.show()
     plt.close()
     print("Saved: rl_realdata_training_summary.png")
 
     coalitions = sample_learned_coalitions(model)
+    print(f"Sampled {len(coalitions)} valid coalitions ({len(set(coalitions))} unique)")
     pd.DataFrame({"Coalition": coalitions}).drop_duplicates().to_csv(
         "outputs/rl_learned_coalitions_realdata_with_sim_vulnerability.csv", index=False)
     print("Exported: outputs/rl_learned_coalitions_realdata_with_sim_vulnerability.csv")
