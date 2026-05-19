@@ -1,3 +1,9 @@
+## Generated figures / scratch PNGs at repo root
+/*.png
+/python/__pycache__/
+exhaustive_k4_log.txt
+.claude/
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
