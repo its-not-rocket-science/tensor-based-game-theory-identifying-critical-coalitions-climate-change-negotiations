@@ -1,41 +1,165 @@
 Score,Coalition,HAC,AOSIS,FFTreaty
-2601.5729060267654,"['Mauritius', 'Korea, Republic of', 'Egypt', 'Greece', 'Ireland', 'Georgia']",False,True,False
-2601.343474249856,"['Sri Lanka', 'Papua New Guinea', ""Korea, Democratic People's Republic"", 'Algeria', 'Greece', 'Ireland']",False,True,False
-2601.343474249856,"['Papua New Guinea', 'Sri Lanka', ""Korea, Democratic People's Republic"", 'Algeria', 'Greece', 'Ireland']",False,True,False
-2601.343474249856,"['Algeria', 'Sri Lanka', 'Papua New Guinea', ""Korea, Democratic People's Republic"", 'Greece', 'Ireland']",False,True,False
-2588.9701239775677,"['Georgia', 'Maldives', 'Korea, Republic of', 'Ireland', 'Greece', 'Tunisia']",True,True,False
-2581.439260420836,"['Bahamas', 'Korea, Republic of', 'Ireland', 'Greece', 'Tunisia', 'Georgia']",False,True,False
-2572.0377334432583,"['Pakistan', 'New Zealand', ""Korea, Democratic People's Republic"", 'Tunisia', 'Ireland', 'Greece']",False,False,True
-2565.420722262432,"['Antigua and Barbuda', 'Korea, Republic of', 'Ireland', 'Greece', 'Tunisia', 'Georgia']",False,True,False
-2563.940778148147,"[""Korea, Democratic People's Republic"", 'Bangladesh', 'Papua New Guinea', 'Algeria', 'Greece', 'Ireland']",False,True,False
-2561.0448058072006,"['Afghanistan', 'Sri Lanka', 'Papua New Guinea', 'Algeria', 'Ireland', 'Greece']",False,True,False
-2559.470510374652,"['Jamaica', 'Paraguay', 'Uruguay', 'Tunisia', 'Ireland', 'Greece']",False,True,False
-2548.972794664196,"['Singapore', 'Korea, Republic of', 'Greece', 'Ireland', 'Tunisia', 'Georgia']",False,True,False
-2546.3947888173866,"['Barbados', 'Korea, Republic of', 'Morocco', 'Ireland', 'Greece', 'Georgia']",False,True,False
-2540.8207896876206,"['Sao Tome and Principe', 'Sri Lanka', 'Papua New Guinea', 'Algeria', 'Iceland', 'Greece']",False,True,False
-2519.050902034259,"['Israel', 'Sri Lanka', 'Papua New Guinea', 'Paraguay', 'Greece', 'Ireland']",False,True,False
-2514.4966401327606,"['Azerbaijan', 'Bahamas', 'Ireland', 'Greece', 'Korea, Republic of', 'Tunisia']",False,True,False
-2514.024276464351,"['Bangladesh', 'Afghanistan', 'Papua New Guinea', 'Algeria', 'Ireland', 'Greece']",False,True,False
-2509.971516274896,"['Belize', 'Korea, Republic of', 'Greece', 'Ireland', 'Tunisia', 'Georgia']",False,True,False
-2498.405875000579,"['Trinidad and Tobago', 'Korea, Republic of', 'Egypt', 'Greece', 'Ireland', 'Georgia']",False,True,False
-2493.596323911617,"['Solomon Islands', 'Papua New Guinea', 'Sri Lanka', 'Algeria', 'Greece', 'Ireland']",False,True,True
-2490.905196886504,"['Cuba', 'Uruguay', 'Paraguay', 'Tunisia', 'Ireland', 'Greece']",False,True,False
-2490.132702816446,"['Qatar', 'Papua New Guinea', ""Korea, Democratic People's Republic"", 'Algeria', 'Greece', 'Ireland']",False,True,False
-2479.8207194767465,"['Norway', 'Bulgaria', 'Korea, Republic of', 'Sri Lanka', 'Tunisia', 'Georgia']",True,False,False
-2476.830569034155,"['Swaziland', 'Togo', 'Samoa', 'Tunisia', 'Ireland', 'Greece']",False,True,True
-2471.64316462237,"['Jordan', 'Sudan', 'Samoa', 'Tunisia', 'Ireland', 'Greece']",False,True,True
-2470.885137551447,"['Maldives', 'Afghanistan', 'Papua New Guinea', 'Algeria', 'Greece', 'Ireland']",True,True,False
-2467.40204702575,"['Guinea-Bissau', 'Togo', 'Samoa', 'Ireland', 'Tunisia', 'Greece']",False,True,True
-2461.7428541587656,"['Tonga', 'Samoa', ""Korea, Democratic People's Republic"", 'Tunisia', 'Ireland', 'Greece']",False,True,True
-2460.8775963328726,"['Mauritania', 'Guinea-Bissau', 'Samoa', 'Tunisia', 'Ireland', 'Greece']",False,True,True
-2456.770215176228,"['Chile', 'Pakistan', 'Paraguay', 'Tunisia', 'Ireland', 'Greece']",True,False,True
-2453.3541976389483,"['Togo', 'Mali', 'Samoa', 'Tunisia', 'Ireland', 'Greece']",False,True,True
-2453.3541976389483,"['Mali', 'Togo', 'Samoa', 'Tunisia', 'Ireland', 'Greece']",False,True,True
-2452.641673452624,"['Bulgaria', 'Sweden', 'Korea, Republic of', 'Pakistan', 'Tunisia', ""Korea, Democratic People's Republic""]",False,False,True
-2452.6416734526224,"['Sweden', 'Bulgaria', 'Korea, Republic of', 'Pakistan', 'Tunisia', ""Korea, Democratic People's Republic""]",False,False,True
-2445.432847875948,"['Bolivia', 'Togo', 'Samoa', 'Tunisia', 'Ireland', 'Greece']",False,True,True
-2438.306871994364,"['Rwanda', 'Togo', 'Samoa', 'Tunisia', 'Ireland', 'Greece']",False,True,True
-2438.086488574917,"['Kuwait', 'Papua New Guinea', ""Korea, Democratic People's Republic"", 'Algeria', 'Greece', 'Ireland']",False,True,False
-2436.315015112027,"['Congo, Democratic Republic of', 'Cameroon', 'Papua New Guinea', 'Tunisia', 'Ireland', 'Greece']",False,True,False
-2436.315015112027,"['Cameroon', 'Congo, Democratic Republic of', 'Papua New Guinea', 'Tunisia', 'Ireland', 'Greece']",False,True,False
-2428.1437014459493,"['Mongolia', 'Swaziland', 'Samoa', 'Tunisia', 'Ireland', 'Greece']",False,True,True
+105352.47468313607,"['Greece', 'Ireland', 'Jamaica', 'Mauritius', 'Tunisia', 'Uruguay']",True,True,False
+105198.57385892507,"['Greece', 'Ireland', 'Jamaica', 'Nigeria', 'Tunisia', 'Uruguay']",True,True,False
+105046.80339110334,"['Greece', 'Ireland', 'Jamaica', 'Kenya', 'Tunisia', 'Uruguay']",True,True,False
+104595.71987553313,"['Ghana', 'Greece', 'Ireland', 'Jamaica', 'Tunisia', 'Uruguay']",True,True,False
+104531.24989168099,"['Greece', 'Ireland', 'Nigeria', 'Trinidad and Tobago', 'Tunisia', 'Uruguay']",True,True,False
+104311.26024387847,"['Ghana', 'Greece', 'Norway', 'Panama', 'Tunisia', 'Uruguay']",True,False,False
+104191.0251291614,"['Greece', 'Morocco', 'Nigeria', 'Spain', 'Trinidad and Tobago', 'Uruguay']",True,True,False
+104047.46649921355,"['Greece', 'Ireland', 'Jamaica', 'Sri Lanka', 'Tunisia', 'Uruguay']",True,True,False
+103920.59543610313,"['Bahamas', 'Greece', 'Ireland', 'Nigeria', 'Tunisia', 'Uruguay']",True,True,False
+103503.27242415494,"['Greece', 'Ireland', 'Jamaica', 'Liberia', 'Tunisia', 'Uruguay']",True,True,False
+103491.98992571936,"['Benin', 'Greece', 'Ireland', 'Jamaica', 'Tunisia', 'Uruguay']",True,True,False
+103450.50242833252,"['Greece', 'Ireland', 'Jamaica', 'Mauritania', 'Tunisia', 'Uruguay']",True,True,False
+103222.91954528357,"[""Cote d'Ivoire"", 'Greece', 'Jamaica', 'Portugal', 'Tunisia', 'Uruguay']",True,True,False
+103049.99602377266,"['Croatia', 'Morocco', 'Nigeria', 'Spain', 'Trinidad and Tobago', 'Uruguay']",True,True,False
+102772.4582694716,"['Bulgaria', 'Ghana', 'Norway', 'Panama', 'Tunisia', 'Uruguay']",True,False,False
+102668.0178886797,"['Greece', 'Ireland', 'Jamaica', 'Jordan', 'Tunisia', 'Uruguay']",True,True,False
+102555.61985341526,"['Cyprus', 'Nigeria', 'Panama', 'Spain', 'Tunisia', 'Uruguay']",True,False,False
+102482.21965724489,"['Ghana', 'Greece', 'Ireland', 'Saint Lucia', 'Tunisia', 'Uruguay']",True,True,False
+102325.00959290507,"['Barbados', 'Cyprus', 'Morocco', 'Nigeria', 'Spain', 'Uruguay']",True,True,True
+101698.12539656606,"['Greece', 'Ireland', 'Morocco', 'Saint Kitts and Nevis', 'Tonga', 'Uruguay']",True,True,True
+101668.24143749094,"['Albania', 'Morocco', 'Nigeria', 'Spain', 'Trinidad and Tobago', 'Uruguay']",True,True,False
+101661.90002875455,"['Bangladesh', 'Greece', 'Ireland', 'Jamaica', 'Tunisia', 'Uruguay']",True,True,False
+101630.17053872746,"['Cameroon', 'Greece', 'Ireland', 'Jamaica', 'Tunisia', 'Uruguay']",True,True,False
+101472.60097927783,"['Congo, Republic of the', 'Greece', 'Ireland', 'Jamaica', 'Tunisia', 'Uruguay']",True,True,False
+101308.90869881058,"['Greece', 'Ireland', 'Jamaica', 'Morocco', 'Oman', 'Uruguay']",True,True,False
+101090.13433341266,"['Greece', 'Nigeria', 'Norway', 'Tunisia', 'Uruguay', 'Venezuela']",True,False,False
+100856.49863526235,"['Dominican Republic', 'Greece', 'Ireland', 'Sri Lanka', 'Tunisia', 'Uruguay']",True,False,False
+100789.41015396774,"['Antigua and Barbuda', 'Greece', 'Ireland', 'Morocco', 'Saint Kitts and Nevis', 'Uruguay']",True,True,False
+100686.97563698963,"['Bulgaria', 'Nigeria', 'Panama', 'Sweden', 'Tunisia', 'Uruguay']",True,False,False
+100618.4733114041,"['Croatia', 'Egypt', 'Nigeria', 'Spain', 'Trinidad and Tobago', 'Uruguay']",True,True,False
+100597.17138034028,"['Jamaica', 'Morocco', 'Nigeria', 'Poland', 'Portugal', 'Uruguay']",True,True,False
+100571.6543279546,"['Bulgaria', 'Norway', 'Pakistan', 'Panama', 'Tunisia', 'Uruguay']",True,False,False
+100479.38998952939,"['Morocco', 'Nigeria', 'Slovenia', 'Spain', 'Trinidad and Tobago', 'Uruguay']",True,True,False
+100402.4156714963,"['Greece', 'Iran', 'Ireland', 'Jamaica', 'Tunisia', 'Uruguay']",True,True,False
+100363.63522703022,"['Antigua and Barbuda', 'Barbados', 'Greece', 'Ireland', 'Morocco', 'Uruguay']",True,True,True
+100217.62719978421,"['Ghana', 'Greece', 'Guatemala', 'Norway', 'Tunisia', 'Uruguay']",True,False,False
+100200.69773356972,"['Estonia', 'Finland', 'Jamaica', 'Mauritius', 'Tunisia', 'Uruguay']",True,True,False
+100119.91458149998,"['Greece', 'Ireland', 'Jamaica', 'Papua New Guinea', 'Tunisia', 'Uruguay']",True,True,True
+100099.88403708358,"['Greece', 'Ireland', 'Mauritania', 'Nicaragua', 'Tunisia', 'Uruguay']",True,False,False
+100034.31915826348,"['Bahrain', 'Greece', 'Ireland', 'Jamaica', 'Tunisia', 'Uruguay']",True,True,False
+99917.67483814963,"['Greece', 'Norway', 'Philippines', 'Trinidad and Tobago', 'Tunisia', 'Uruguay']",True,True,False
+99802.3528837455,"['Greece', 'Ireland', 'Jamaica', 'Mali', 'Senegal', 'Tunisia']",True,True,False
+99733.07669452645,"['Greece', 'Ireland', 'Jamaica', 'Qatar', 'Tunisia', 'Uruguay']",True,True,False
+99707.77705082348,"['Barbados', 'Malta', 'Morocco', 'Nigeria', 'Spain', 'Uruguay']",True,True,True
+99616.05521527215,"['Greece', 'Ireland', 'Morocco', 'Saint Kitts and Nevis', 'Sierra Leone', 'Uruguay']",True,True,False
+99577.77018466004,"['Denmark', 'Jamaica', 'Kenya', 'Switzerland', 'Tunisia', 'Uruguay']",True,True,False
+99577.382740108,"['Ghana', 'Hungary', 'Morocco', 'Norway', 'Panama', 'Uruguay']",True,False,False
+99523.88351334762,"['Bulgaria', 'Cuba', 'Norway', 'Pakistan', 'Tunisia', 'Uruguay']",True,True,False
+99445.78734243609,"['Djibouti', 'Egypt', 'Greece', 'Jamaica', 'Spain', 'Uruguay']",True,True,False
+99427.42716262005,"['Bulgaria', 'New Zealand', 'Panama', 'Sweden', 'Tunisia', 'Uruguay']",True,False,False
+99418.34321086181,"['Belgium', 'Kenya', 'Panama', 'Switzerland', 'Tunisia', 'Uruguay']",True,False,False
+99370.28405460148,"['Bulgaria', 'Finland', 'Nigeria', 'Panama', 'Tunisia', 'Uruguay']",True,False,False
+99356.19936348409,"['Bulgaria', 'Georgia', 'Ireland', 'Jamaica', 'Nigeria', 'Tunisia']",True,True,False
+99291.93685518362,"['Greece', 'Ireland', 'Jamaica', 'Namibia', 'Tunisia', 'Uruguay']",True,True,False
+99290.51309002738,"['Greece', 'Ireland', 'Jamaica', 'Niger', 'Senegal', 'Tunisia']",True,True,False
+99241.2121546116,"['Burkina Faso', 'Greece', 'Ireland', 'Jamaica', 'Senegal', 'Tunisia']",True,True,False
+99190.36105734415,"['Cape Verde', 'Greece', 'Norway', 'Trinidad and Tobago', 'Tunisia', 'Uruguay']",True,True,False
+98965.54796564019,"['Jamaica', 'Morocco', 'New Zealand', 'Poland', 'Sweden', 'Uruguay']",True,True,False
+98959.53958466923,"['Antigua and Barbuda', 'Belize', 'Greece', 'Ireland', 'Morocco', 'Uruguay']",True,True,True
+98933.83074856777,"['Algeria', 'Cyprus', 'Ghana', 'Panama', 'Spain', 'Uruguay']",True,False,False
+98799.47470625714,"['Bulgaria', 'Guinea', 'Norway', 'Panama', 'Tunisia', 'Uruguay']",True,False,False
+98658.13475804092,"['Finland', 'Jamaica', 'Latvia', 'Nigeria', 'Tunisia', 'Uruguay']",True,True,False
+98554.37245181412,"['Antigua and Barbuda', 'Greece', 'Ireland', 'Saint Vincent and the Grenadines', 'Tunisia', 'Uruguay']",True,True,False
+98471.8781276432,"['Jamaica', 'Nigeria', 'Romania', 'Sweden', 'Tunisia', 'Uruguay']",True,True,False
+98367.38931818388,"['Montenegro', 'Morocco', 'Nigeria', 'Spain', 'Trinidad and Tobago', 'Uruguay']",True,True,False
+98302.65484212805,"['Ghana', 'Greece', 'Ireland', 'Suriname', 'Tunisia', 'Uruguay']",True,True,False
+98277.83715969627,"['Greece', 'Ireland', 'Morocco', 'Saint Lucia', 'Seychelles', 'Uruguay']",True,True,False
+98069.33204256734,"['Colombia', 'Greece', 'Mauritius', 'Morocco', 'Norway', 'Peru']",True,True,False
+98045.57828427435,"['Ireland', 'Panama', 'Switzerland', 'Tunisia', 'United Arab Emirates', 'Uruguay']",True,False,False
+98010.26226665109,"['Greece', 'Ireland', 'Jamaica', 'Samoa', 'Tunisia', 'Uruguay']",True,True,True
+97958.6396919254,"['Jamaica', 'Kenya', 'Luxembourg', 'Netherlands', 'Tunisia', 'Uruguay']",True,True,False
+97908.16781427784,"['Greece', 'Ireland', 'Jamaica', 'Morocco', 'Palau', 'Uruguay']",True,True,True
+97902.5836885634,"['Bahamas', 'Liberia', 'Netherlands', 'Switzerland', 'Tunisia', 'Uruguay']",True,True,False
+97899.30540250835,"['Colombia', 'Ecuador', 'Greece', 'Ireland', 'Mauritius', 'Tunisia']",True,True,False
+97881.0191199854,"['Estonia', 'Finland', 'Jamaica', 'Malaysia', 'Tunisia', 'Uruguay']",True,True,False
+97706.22297830606,"['Greece', 'Ireland', 'Jamaica', 'Kuwait', 'Tunisia', 'Uruguay']",True,True,False
+97551.42567750177,"['Albania', 'Liberia', 'Spain', 'Syria', 'Trinidad and Tobago', 'Uruguay']",True,True,False
+97435.06853903172,"['Ghana', 'Greece', 'Honduras', 'Norway', 'Tunisia', 'Uruguay']",True,False,False
+97407.5852708603,"['Greece', 'Ireland', 'Jamaica', 'Swaziland', 'Togo', 'Tunisia']",True,True,False
+97320.25905653436,"['Greece', 'Guinea-Bissau', 'Ireland', 'Jamaica', 'Togo', 'Tunisia']",True,True,False
+97273.90541451209,"['Greece', 'Ireland', 'Jamaica', 'Tanzania', 'Tunisia', 'Uruguay']",True,True,False
+97176.59897269424,"['Chile', 'New Zealand', 'Norway', 'Panama', 'Poland', 'Tunisia']",True,False,False
+97155.21390611031,"['Greece', 'Ireland', 'Maldives', 'Morocco', 'Saint Kitts and Nevis', 'Uruguay']",True,True,False
+96984.34146116693,"['Azerbaijan', 'Bahamas', 'Greece', 'Morocco', 'Nigeria', 'Spain']",True,True,False
+96955.47532681108,"['Greece', 'Ireland', 'Paraguay', 'Sri Lanka', 'Tunisia', 'Uruguay']",True,False,False
+96872.13516355875,"['Greece', 'Ireland', 'Morocco', 'Saint Kitts and Nevis', 'Singapore', 'Uruguay']",True,True,False
+96712.12643987138,"['Fiji', 'Greece', 'Ireland', 'Jamaica', 'Tunisia', 'Uruguay']",True,True,True
+96688.50029623536,"['Greece', 'Jamaica', 'Mauritius', 'Monaco', 'Spain', 'Uruguay']",True,True,False
+96637.35358657848,"['Greece', 'Ireland', 'Mozambique', 'Saint Kitts and Nevis', 'Tunisia', 'Uruguay']",True,True,False
+96541.86036634824,"['Greece', 'Guinea', 'Ireland', 'Jamaica', 'Malawi', 'Tunisia']",True,True,False
+96467.61304277522,"['Greece', 'Ireland', 'Jamaica', 'Tunisia', 'Uruguay', 'Viet Nam']",True,True,False
+96420.06475787133,"['El Salvador', 'Greece', 'Ireland', 'Mauritania', 'Tunisia', 'Uruguay']",True,False,False
+96344.91515258761,"['Bolivia', 'Greece', 'Ireland', 'Jamaica', 'Togo', 'Tunisia']",True,True,False
+96303.1855319997,"['Djibouti', 'Egypt', 'Greece', 'Ireland', 'Jamaica', 'Sudan']",True,True,False
+96245.29560516056,"['Ireland', 'Jamaica', 'Luxembourg', 'Mali', 'Togo', 'Tunisia']",True,True,False
+96056.34486311668,"['Cambodia', 'Greece', 'Ireland', 'Jamaica', 'Tunisia', 'Uruguay']",True,True,False
+95935.28783973676,"['Greece', 'Ireland', 'Jamaica', 'Rwanda', 'Togo', 'Tunisia']",True,True,False
+95932.05931020845,"['Ethiopia', 'Greece', 'Ireland', 'Jamaica', 'Togo', 'Tunisia']",True,True,False
+95931.7849057152,"['Chad', 'Greece', 'Ireland', 'Jamaica', 'Senegal', 'Tunisia']",True,True,False
+95875.178726483,"['Finland', 'Jamaica', 'Lithuania', 'Morocco', 'Nigeria', 'Uruguay']",True,True,False
+95725.56078199795,"['Greece', 'Guyana', 'Ireland', 'Seychelles', 'Tunisia', 'Uruguay']",True,True,False
+95704.29781804391,"['Ireland', 'Jamaica', 'Mongolia', 'Switzerland', 'Tunisia', 'Uruguay']",True,True,False
+95668.5527474503,"['Cameroon', 'Congo, Democratic Republic of', 'Greece', 'Ireland', 'Jamaica', 'Tunisia']",True,True,False
+95593.2755425626,"['Greece', 'Ireland', 'Jamaica', 'Kiribati', 'Morocco', 'Uruguay']",True,True,True
+95515.19433211914,"['Afghanistan', 'Greece', 'Norway', 'Sri Lanka', 'Tunisia', 'Uruguay']",True,False,False
+95425.04493801366,"['Barbados', 'Greece', 'Morocco', 'Norway', 'Uruguay', 'Vanuatu']",True,True,True
+95316.04542445914,"['Comoros', 'Greece', 'Ireland', 'Jamaica', 'Tunisia', 'Uruguay']",True,True,False
+95303.06893272384,"['Egypt', 'Greece', 'Jamaica', 'Spain', 'Uruguay', 'Yemen']",True,True,False
+95073.77262726889,"['Greece', 'Jamaica', 'Jordan', 'Lebanon', 'Spain', 'Uruguay']",True,True,False
+95069.49987069366,"['Cyprus', 'Iceland', 'Jamaica', 'Mauritania', 'Tunisia', 'Uruguay']",True,True,False
+94738.98194575548,"['Greece', 'Ireland', 'Jamaica', 'Lesotho', 'Togo', 'Tunisia']",True,True,False
+94479.88418501783,"['Antigua and Barbuda', 'Dominica', 'Greece', 'Ireland', 'Tunisia', 'Uruguay']",True,True,False
+94428.61924846815,"['Cuba', 'Greece', 'Norway', 'Thailand', 'Tunisia', 'Uruguay']",True,True,False
+94424.13819986157,"['Costa Rica', 'Greece', 'Norway', 'Sri Lanka', 'Tunisia', 'Uruguay']",True,False,False
+94301.96848144804,"['Eritrea', 'Greece', 'Ireland', 'Jamaica', 'Kenya', 'Tunisia']",True,True,False
+94113.68907720757,"['Greece', 'Iraq', 'Ireland', 'Jamaica', 'Jordan', 'Tunisia']",True,True,False
+94046.93042911433,"['Greece', 'Ireland', 'Jamaica', 'Togo', 'Tunisia', 'Zambia']",True,True,False
+93858.57447117688,"['Cameroon', 'Central African Republic', 'Greece', 'Ireland', 'Jamaica', 'Tunisia']",True,True,False
+93580.70097234927,"['Jamaica', 'Morocco', 'Nigeria', 'Serbia', 'Spain', 'Uruguay']",True,True,False
+93529.57680688742,"['Hungary', 'Kenya', 'Moldova', 'Morocco', 'Norway', 'Uruguay']",True,False,False
+93506.56112204822,"['Greece', 'Ireland', 'Jamaica', 'Madagascar', 'Swaziland', 'Tunisia']",True,True,False
+93194.55619681059,"['Bahamas', 'Ireland', 'Marshall Islands', 'Switzerland', 'Tunisia', 'Uruguay']",True,True,True
+92875.1508490113,"['Greece', 'Ireland', 'Jamaica', 'Togo', 'Tunisia', 'Uganda']",True,True,False
+92849.1125220855,"['Burundi', 'Greece', 'Ireland', 'Jamaica', 'Togo', 'Tunisia']",True,True,False
+92708.6290320958,"['Cuba', 'Greece', ""Korea, Democratic People's Republic"", 'Norway', 'Pakistan', 'Uruguay']",True,True,False
+92559.69276209758,"['Greece', 'Ireland', 'Saint Vincent and the Grenadines', 'Sao Tome and Principe', 'Tunisia', 'Uruguay']",True,True,False
+92558.43608532407,"['Albania', ""Cote d'Ivoire"", 'Libya', 'Panama', 'Spain', 'Uruguay']",True,False,False
+92524.73329412813,"['Congo, Democratic Republic of', 'Gabon', 'Greece', 'Ireland', 'Jamaica', 'Tunisia']",True,True,False
+92522.56469839068,"['Greece', 'Ireland', 'Jamaica', 'Nepal', 'Pakistan', 'Tunisia']",True,True,False
+92320.2505921724,"['Austria', 'New Zealand', 'Panama', 'Sweden', 'Tunisia', 'Uruguay']",True,False,False
+92226.65551192919,"['Finland', 'Nigeria', 'Romania', 'Tunisia', 'Ukraine', 'Uruguay']",True,False,False
+91871.34701710308,"['Angola', 'Greece', 'Ireland', 'Morocco', 'Trinidad and Tobago', 'Uruguay']",True,True,False
+91640.18407958413,"['Brunei Darussalam', 'Greece', 'Ireland', 'Jamaica', 'Tunisia', 'Uruguay']",True,True,False
+91595.9896454723,"['Gambia', 'Greece', 'Guinea-Bissau', 'Ireland', 'Jamaica', 'Tunisia']",True,True,False
+91509.02127679375,"['Greece', 'Kazakhstan', 'Morocco', 'Nigeria', 'Spain', 'Uruguay']",True,False,False
+91318.46743509248,"['Greece', 'Ireland', 'Jamaica', 'Solomon Islands', 'Tunisia', 'Uruguay']",True,True,True
+91025.89777426436,"['Greece', 'Ireland', 'Jamaica', 'Laos', 'Malawi', 'Tunisia']",True,True,False
+90980.2832633326,"['Antigua and Barbuda', 'Greece', 'Grenada', 'Ireland', 'Tunisia', 'Uruguay']",True,True,False
+90586.6228356556,"['Israel', 'Malta', 'Nigeria', 'Spain', 'Trinidad and Tobago', 'Uruguay']",True,True,False
+90495.75297485915,"['Mauritius', 'Moldova', 'Norway', 'Slovakia', 'Tunisia', 'Uruguay']",True,True,False
+90431.02417683693,"['Djibouti', 'Greece', 'Ireland', 'Jamaica', 'Somalia', 'Tunisia']",True,True,False
+90171.13751173967,"['Bulgaria', 'Myanmar', 'Norway', 'Panama', 'Tunisia', 'Uruguay']",True,False,False
+89899.3505879635,"['Botswana', 'Greece', 'Ireland', 'Jamaica', 'Mozambique', 'Tunisia']",True,True,False
+89873.4415438459,"['Belarus', 'Hungary', 'Norway', 'Senegal', 'Tunisia', 'Uruguay']",True,False,False
+89554.24709411278,"['Czech Republic', 'Finland', 'Moldova', 'Pakistan', 'Tunisia', 'Uruguay']",True,False,False
+89218.394751575,"['Armenia', 'Jamaica', 'Latvia', 'Nigeria', 'Sweden', 'Tunisia']",True,True,False
+88447.09328852175,"['Greece', 'Ireland', 'Jamaica', 'Tanzania', 'Tunisia', 'Zimbabwe']",True,True,False
+88291.90253776827,"['Bhutan', 'Bulgaria', 'Cuba', 'Norway', 'Pakistan', 'Uruguay']",True,True,False
+88227.09478342469,"['Greece', 'Haiti', 'Ireland', 'Jamaica', 'Togo', 'Tunisia']",True,True,False
+87912.60091270534,"['Greece', 'Ireland', 'Morocco', 'Saint Kitts and Nevis', 'Tuvalu', 'Uruguay']",True,True,True
+87149.7859694633,"['Equatorial Guinea', 'Greece', 'Ireland', 'Saint Vincent and the Grenadines', 'Tunisia', 'Uruguay']",True,True,False
+87049.85068242071,"['Bulgaria', 'Cuba', 'Kyrgyzstan', 'Norway', 'Pakistan', 'Uruguay']",True,True,False
+85045.69546009715,"['Greece', 'Ireland', 'Jamaica', 'Kenya', 'Morocco', 'San Marino']",True,True,False
+84790.0050851324,"['Greece', 'Ireland', 'Jamaica', 'Mongolia', 'Tajikistan', 'Tunisia']",True,True,False
+84648.31595208317,"['Bosnia and Herzegovina', ""Cote d'Ivoire"", 'Jamaica', 'Moldova', 'Portugal', 'Tunisia']",True,True,False
+84596.96376028788,"['Greece', 'Ireland', 'Jamaica', 'Mongolia', 'Tunisia', 'Turkmenistan']",True,True,False
+84417.24874079923,"['Andorra', 'Georgia', 'Greece', 'Ireland', 'Nigeria', 'Tunisia']",True,False,False
+84000.12869707629,"['Denmark', 'Jamaica', 'Kenya', 'Macedonia', 'Moldova', 'Tunisia']",True,True,False
+82371.60599774151,"['Greece', 'Ireland', 'Jamaica', 'Morocco', 'Nauru', 'Uruguay']",True,True,True
+81681.85135638926,"['Bangladesh', 'Greece', 'Ireland', 'Jamaica', 'Timor-Leste', 'Tunisia']",True,True,True
+80659.015067197,"['Greece', 'Ireland', 'Jamaica', 'Kenya', 'South Sudan', 'Tunisia']",True,True,False
+77564.50500394746,"['Denmark', 'Jamaica', 'Liechtenstein', 'Mauritania', 'Monaco', 'Uruguay']",True,True,False
+75258.6565817043,"['Greece', 'Ireland', 'Jamaica', 'Micronesia', 'Rwanda', 'Tunisia']",True,True,False
+74857.43944001972,"['Greece', 'Kazakhstan', 'Nigeria', 'Spain', 'Tunisia', 'Uzbekistan']",True,False,False

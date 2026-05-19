@@ -495,7 +495,7 @@ To assess the empirical plausibility of the coalitions identified by our model, 
 	\item \textbf{Fossil Fuel Non-Proliferation Treaty (FF-NPT) Initiative}~\cite{ffnpt2024} — a recent campaign led by vulnerable nations seeking to phase out fossil fuel production.
 \end{itemize}
 
-We found that several of our model-identified coalitions contain members from these influential real-world initiatives. For example, \textit{Fiji}, \textit{Tuvalu}, \textit{Papua New Guinea}, and \textit{The Bahamas} — all prominent AOSIS or FF-NPT members — appear frequently in high-scoring coalitions (see Table~\ref{tab:matched_coalitions}).
+We found that several of our model-identified coalitions contain members from these influential real-world initiatives. For example, \textit{Jamaica}, \textit{Mauritius}, and \textit{The Bahamas} — all AOSIS members — appear in multiple top-scoring coalitions, as do HAC member states \textit{Ireland}, \textit{Greece}, and \textit{Uruguay} (see Table~\ref{tab:matched_coalitions}). All 164 unique greedy-discovered coalitions overlap with at least one of the three initiatives, reflecting the broad geographic reach of HAC and AOSIS membership among non-G20 nations.
 
 \paragraph{Interpretation.}
 This overlap supports the model's validity: coalitions flagged as potentially influential by our tipping score framework are not only plausible but often reflect known diplomatic groupings that have, in fact, shaped global policy outcomes. The predictive alignment between our method and historical reality reinforces the model’s interpretive and forecasting utility.
@@ -508,7 +508,7 @@ Our matching focused only on membership overlap. Future work could extend this b
 	\scriptsize
 	\input{matched_real_world_coalitions_summary.tex}
 	\caption{Sample of high-scoring minor-player coalitions with overlaps to known real-world initiatives. Full results available at:
-		\href{https://github.com/its-not-rocket-science/tensor-based-game-theory-identifying-critical-coalitions-climate-change-negotiations/blob/main/outputs/matched_real_world_coalitions.csv}{\texttt{matched\_real\_world\_coalitions.csv (GitHub)}}}
+		\href{https://github.com/its-not-rocket-science/tensor-based-game-theory-identifying-critical-coalitions-climate-change-negotiations/blob/main/python/outputs/matched_real_world_coalitions.csv}{\texttt{matched\_real\_world\_coalitions.csv (GitHub)}}}
 	\label{tab:matched_coalitions}
 \end{table}
 
@@ -749,7 +749,7 @@ The tipping threshold $\lambda_{\text{crit}}$ is currently set exogenously. A pr
 The IEA treaty dataset ends in 2017. Extending the pipeline to include post-Paris Agreement ratifications, nationally determined contributions (NDCs), and COP26--28 outcomes would capture recent realignments, including the growing influence of climate-vulnerable nations and the emergence of new regional blocs. Dynamic models in which the ratification matrix evolves over time would allow trajectory-based coalition analysis.
 
 \paragraph{Richer influence representations.}
-The current influence matrix is derived from cosine similarity on treaty ratification profiles. Incorporating economic trade networks, diplomatic co-signatories, and UN voting records would yield a multi-modal influence tensor that better reflects actual negotiation leverage. Weighted combinations of these signals could be learned from historical coalition formation data.
+The current influence matrix $M = XX^\top$ is derived from binary treaty co-ratification counts (dot products of ratification vectors). Incorporating economic trade networks, diplomatic co-signatories, and UN voting records would yield a multi-modal influence tensor that better reflects actual negotiation leverage. Weighted combinations of these signals could be learned from historical coalition formation data.
 
 \paragraph{Causal validation.}
 Model-identified coalitions should be tested against actual negotiation outcomes. A promising approach is to check whether high-scoring coalitions identified from pre-COP treaty data preceded measurable shifts in the positions of major actors at subsequent COPs. This would transform the framework from a descriptive tool into a predictive one.
