@@ -19,7 +19,7 @@
 % Title and Author Info
 \title{\textbf{Tipping the Climate Equilibrium: Tensor-Based Game Theory for Identifying Critical Coalitions in Climate Policy Negotiations}}
 
-\author[1]{Paul Schleifer\thanks{Contact: paul.schleifer@hotmail.com}}
+\author[1]{Paul Schleifer\thanks{Contact: paul.schleifer@hotmail.com. ORCID: \href{https://orcid.org/0009-0004-7972-3566}{0009-0004-7972-3566}}}
 \affil[1]{Independent Researcher, London, United Kingdom}
 
 \date{\today}
@@ -73,14 +73,14 @@ Climate change negotiations have long been studied through the lens of game theo
 
 \citet{tavoni2009coalitions} introduced the idea of coalition formation games with spillover effects, where smaller groups of actors could lead in technology adoption and thereby reduce the costs of mitigation for non-participants. This resonates with real-world developments, such as the EU’s leadership in carbon pricing and the influence of subnational actors post-Kyoto.
 
-Roemer’s \textit{Kantian equilibrium} framework \citep{roemer2010kantian} also shifts the focus from traditional utility-maximizing behaviour to principled cooperative norms, offering a route to understand policy emergence when actors care about global outcomes. In a similar vein, \citet{young2015individual} and others have explored the role of social norms, tipping points, and behavioural diffusion in large-scale coordination problems.
+Roemer’s \textit{Kantian equilibrium} framework \citep{roemer2010kantian} also shifts the focus from traditional utility-maximising behaviour to principled cooperative norms, offering a route to understand policy emergence when actors care about global outcomes. In a similar vein, \citet{young2015individual} and others have explored the role of social norms, tipping points, and behavioural diffusion in large-scale coordination problems.
 
 On the computational side, tensor methods have seen increasing application in multi-agent systems and generalised games \citep{cheng2014tensor}, but have yet to be widely adopted in the domain of environmental policy modelling. Our work bridges this gap by combining high-dimensional tensor representations with coalition tipping logic, and applies this hybrid to the analysis of catalytic influence in climate negotiations.
 
 \paragraph{Treaty regime formation and the decisional logic of membership.}
-\citet{cope2025decisional} develops a formal model of treaty regime formation in which each state's membership decision depends on the bilateral marginal value $v_j$ contributed by every incumbent member, modulated by an externality parameter $e \in [0,1]$ that governs how much of the regime's benefits spill to non-members. This bilateral utility structure --- where $i$'s decision depends on pairwise relationships with each existing member $j$ --- is a special case of the triadic interaction structure formalised by our influence tensor. In Cope's framework the joint effect of two members $j$ and $k$ on $i$ factorises into independent bilateral terms; our tensor entry $\mathcal{T}_{ijk}$ allows this effect to be genuinely triadic. The real-data proxy $\mathcal{T}_{ijk} = \mathbf{x}_j \cdot \mathbf{x}_k$ can be read as micro-founding the tensor through Cope's primitives: treaty co-ratification $M_{jk} = \mathbf{x}_j \cdot \mathbf{x}_k$ serves as a proxy for the joint normative value that members $j$ and $k$ jointly contribute to $i$'s strategic environment, and $\mathrm{InfluenceSpread}(C) = \sum_{j \in C,\, k \notin C} M_{jk}$ provides a computational counterpart to Cope's externality: a coalition with high InfluenceSpread projects strong normative pressure on non-member states, precisely the mechanism Cope's high-$e$ regime triggers. The two frameworks address complementary questions --- Cope asks which coalitions form stably under rational membership incentives; we ask which coalitions, once formed, maximise systemic tipping potential. Future work could use Cope's stability conditions as a feasibility filter on our coalition search, retaining candidates that are both high-scoring and rationalizable under his membership utility.
+\citet{cope2025decisional} develops a formal model of treaty regime formation in which each state's membership decision depends on the bilateral marginal value $v_j$ contributed by every incumbent member, modulated by an externality parameter $e \in [0,1]$ that governs how much of the regime's benefits spill to non-members. This bilateral utility structure --- where $i$'s decision depends on pairwise relationships with each existing member $j$ --- is a special case of the triadic interaction structure formalised by our influence tensor. In Cope's framework the joint effect of two members $j$ and $k$ on $i$ factorises into independent bilateral terms; our tensor entry $\mathcal{T}_{ijk}$ allows this effect to be genuinely triadic. The real-data proxy $\mathcal{T}_{ijk} = \mathbf{x}_j \cdot \mathbf{x}_k$ can be read as micro-founding the tensor through Cope's primitives: treaty co-ratification $M_{jk} = \mathbf{x}_j \cdot \mathbf{x}_k$ serves as a proxy for the joint normative value that members $j$ and $k$ jointly contribute to $i$'s strategic environment, and $\mathrm{InfluenceSpread}(C) = \sum_{j \in C,\, k \notin C} M_{jk}$ provides a computational counterpart to Cope's externality: a coalition with high InfluenceSpread projects strong normative pressure on non-member states, precisely the mechanism Cope's high-$e$ regime triggers. The two frameworks address complementary questions --- Cope asks which coalitions form stably under rational membership incentives; we ask which coalitions, once formed, maximise systemic tipping potential. Future work could use Cope's stability conditions as a feasibility filter on our coalition search, retaining candidates that are both high-scoring and rationalisable under his membership utility.
 
-This paper aims to extend the above lines of research by introducing a formal structure for modelling multi-agent interactions in climate strategy spaces, while explicitly identifying the conditions under which small coalitions can lead to large-scale systemic shifts.
+The present paper adds a third-order tensor layer to this literature, formally connecting spectral bifurcation conditions to a tractable coalition scoring rule and testing it on real treaty participation data.
 
 
 \section{Mathematical Framework}
@@ -166,7 +166,7 @@ We propose the following method:
 	\item \textbf{Simulation}: Use the dynamical system \eqref{eq:dynamics} to simulate the evolution of strategies under the influence of coalition $C$.
 \end{enumerate}
 
-This formalism provides a method for identifying under-recognised actors whose collective commitment can shift global climate policy toward cooperation.
+These four steps are implemented for small systems in Section~\ref{sec:simulation} and scaled to $N=175$ via TippingScore in Sections~\ref{sec:minor_coalitions}--\ref{sec:results_realdata}.
 
 \subsection{Real-Data Approximation: TippingScore as a Tractable Proxy}
 \label{sec:tipping_score_proxy}
@@ -292,7 +292,7 @@ Additionally, we construct a synthetic network simulating trade or geopolitical 
 	\label{fig:power_centrality}
 \end{figure}
 
-Figure~\ref{fig:power_centrality} confirms that players with high pivotality often overlap with those holding structural centrality in the interaction network. These actors are prime candidates for minimal, high-impact tipping coalitions and can be targeted in strategic alliance planning.
+Figure~\ref{fig:power_centrality} confirms that players with high pivotality often overlap with those holding structural centrality in the interaction network. High scores on both metrics jointly flag actors whose removal would most reduce coalition tipping potential.
 
 
 \subsection{Greedy Search for Minimal Tipping Coalitions}
@@ -353,7 +353,7 @@ to control coalition bloat and prioritise strategic leverage over size. In exper
 	\label{fig:rl_training_summary}
 \end{figure}
 
-Figure~\ref{fig:rl_training_summary} shows learning dynamics over time. Despite sparse rewards, the agent successfully converges to a compact, high-impact coalition. This illustrates the utility of policy learning when paired with well-structured incentive functions. The final coalition structure depends critically on reward shaping and model calibration.
+Figure~\ref{fig:rl_training_summary} shows learning dynamics over time. Despite sparse rewards, the agent successfully converges to a compact, high-impact coalition. The threshold reward variant produces the most compact and interpretable coalitions; raw reward leads to over-inclusion and penalised reward requires careful tuning of $\alpha$.
 
 Full source code for this experiment is available at:  
 \url{https://github.com/its-not-rocket-science/tensor-based-game-theory-identifying-critical-coalitions-climate-change-negotiations}
@@ -367,7 +367,7 @@ To investigate the strategic alignment of countries within the context of intern
 
 We apply hierarchical clustering using cosine similarity and Ward linkage to partition countries into eight primary clusters. Each cluster is labelled descriptively by its dominant UNSD sub-region (e.g., \textit{Northern Africa(6) + 4 more}), providing a high-level summary of geopolitical alignment and regional proximity.
 
-Figure~\ref{fig:cluster_network} presents the resulting cluster-to-cluster similarity network. Edges indicate strong cosine similarity (threshold $\geq 0.5$) between average treaty profiles of different clusters, and labels summarize the dominant subregion and diversity of membership.
+Figure~\ref{fig:cluster_network} presents the resulting cluster-to-cluster similarity network. Edges indicate strong cosine similarity (threshold $\geq 0.5$) between average treaty profiles of different clusters, and labels summarise the dominant subregion and diversity of membership.
 
 \begin{figure}[htbp]
 	\centering
@@ -378,13 +378,13 @@ Figure~\ref{fig:cluster_network} presents the resulting cluster-to-cluster simil
 	\label{fig:cluster_network}
 \end{figure}
 
-Within each cluster, we further examine strategic similarity using PCA projections. These visualizations (see supplementary figures) provide insight into intra-cluster cohesion, while dendrograms reveal potential substructures. Notably, Cluster 5 contains a disproportionately large number of countries, and its dendrogram suggests at least three cohesive sub-clusters. A more detailed sub-clustering of such large groups may help refine our understanding of coalition boundaries and is proposed for future work.
+Within each cluster, we further examine strategic similarity using PCA projections. These visualisations (see supplementary figures) provide insight into intra-cluster cohesion, while dendrograms reveal potential substructures. Cluster 5 contains a disproportionately large number of countries, and its dendrogram suggests at least three cohesive sub-clusters. A more detailed sub-clustering of such large groups may help refine our understanding of coalition boundaries and is proposed for future work.
 
 \subsection*{Strategic Motivation for Minor Player Alliance Search}
 
 Our primary motivation in identifying these clusters is to support the discovery of new, strategically interesting alliances among \emph{minor players}. Within-cluster alignments are likely to reflect existing blocs, formal or informal (e.g., shared regional institutions, UN voting patterns). These are not only intuitive but likely already explored diplomatically.
 
-However, coalitions that span multiple clusters may be less obvious—and more valuable. We hypothesize that \textbf{cross-cluster alliances among minor players} could form unexpected but influential coalitions with high leverage in tipping larger players' behaviours. The visual and structural outputs of our clustering analysis provide a formal method for scanning and prioritizing such potential alignments. These structures will serve as the input to our coalition tipping models in later sections.
+However, coalitions that span multiple clusters may be less obvious—and more valuable. We hypothesise that \textbf{cross-cluster alliances among minor players} can form unexpected but influential coalitions with high leverage in shifting larger players' strategies. The clustering analysis provides a principled basis for scanning such cross-community combinations.
 
 \subsection{Exhaustive Search for Minor-Player Tipping Coalitions}
 \label{sec:minor_coalitions}
