@@ -33,7 +33,7 @@
 \begin{abstract}
 We introduce a tensor-based extension of multiplayer game theory to model how small coalitions of relatively low-influence actors can tip the equilibrium in climate policy negotiations. Traditional game-theoretic approaches struggle to capture the high-dimensional, nonlinear, and asymmetric nature of international climate interactions. Our formulation represents strategic influence as a third-order tensor $\mathcal{T} \in \mathbb{R}^{N \times N \times N}$, where each entry quantifies the joint influence of two actors on a third, and defines a tipping score to identify coalitions capable of shifting systemic outcomes through coordinated cooperation.
 
-We prove formally that for the real-data influence tensor the first-order Z-eigenvalue shift under coalition activation equals a weighted combination of internal co-ratification alignment and outward influence spread, providing an exact algebraic grounding for the tipping score metric. We validate the framework analytically on small synthetic systems, demonstrating eigenvalue-driven phase transitions when minor-player coalitions are activated, and computationally on a real-data pipeline covering 175 non-G20 nations across 263 multilateral environmental agreements (1950--2017). Vulnerability scores from the ND-GAIN Country Index and WRI Aqueduct 4.0 are integrated into the reward function, creating an incentive for including frontline-affected nations in optimal coalitions. A REINFORCE policy gradient agent using Gumbel top-$K$ sampling discovers coalitions that outperform exhaustive random search by 14.7\%, achieving a peak tipping score of 22,229 across 4,964 unique configurations. Keystone country analysis identifies Uruguay, Tunisia, Greece, and Algeria as consistently high-leverage coalition anchors. We find that cross-cluster geographic diversity spanning at least 6 of 8 treaty-participation clusters is a necessary condition for top-scoring coalitions, operationalising the theoretical prediction that the most strategically valuable alliances are the least obvious ones.
+We prove formally that for the real-data influence tensor the first-order Z-eigenvalue shift under coalition activation equals a weighted combination of internal co-ratification alignment and outward influence spread, providing an exact algebraic grounding for the tipping score metric. We validate the framework analytically on small synthetic systems, demonstrating eigenvalue-driven phase transitions when minor-player coalitions are activated, and computationally on a real-data pipeline covering 175 non-G20 nations across 263 multilateral environmental agreements (1950--2017). Vulnerability scores from the ND-GAIN Country Index and WRI Aqueduct 4.0 are integrated into the reward function, creating an incentive for including frontline-affected nations in optimal coalitions. A REINFORCE policy gradient agent using Gumbel top-$K$ sampling discovers coalitions that outperform exhaustive random search by 14.7\%, achieving a peak tipping score of 22,229 across 4,964 unique configurations. Keystone country analysis identifies Uruguay, Tunisia, Greece, and Algeria as consistently high-leverage coalition anchors. We find that cross-cluster geographic diversity spanning at least 6 of 8 treaty-participation clusters is a necessary condition for top-scoring coalitions, consistent with the theoretical expectation that high-leverage coalitions tend to span geographically and institutionally disparate treaty communities.
 \end{abstract}
 
 \keywords{tensor games; coalition formation; climate negotiations; reinforcement learning; Z-eigenvalue; tipping points}
@@ -324,14 +324,14 @@ Three reward models are tested:
 
 \begin{itemize}
 	\item \textbf{Raw Reward:} Favours maximum cooperation — leads to full coalitions.
-	\item \textbf{Penalized Reward:} Subtracts size-based costs; requires careful tuning.
+	\item \textbf{Penalised Reward:} Subtracts size-based costs; requires careful tuning.
 	\item \textbf{Threshold-Based Reward:} Rewards tipping within a size cap (e.g., $\leq 5$).
 \end{itemize}
 
 Training reveals that:
 \begin{itemize}
 	\item Raw reward leads to convergence on all 10 players.
-	\item Penalized reward leads to mid-sized, efficient coalitions when properly tuned.
+	\item Penalised reward leads to mid-sized, efficient coalitions when properly tuned.
 	\item Threshold reward reliably finds minimal tipping sets (e.g., 3–4 members).
 \end{itemize}
 
@@ -448,7 +448,7 @@ As shown in Figure~\ref{fig:score_distribution}, the tipping scores form a posit
 \end{figure}
 
 \paragraph{Tipping Threshold Definition.}
-We designate the 99th percentile value (24{,}599) as a data-driven tipping threshold. This is an empirical criterion, not a derivation of the analytical bifurcation threshold $\lambda_c$ from Section~\ref{sec:math}: unlike $\lambda_c$, which is defined by the saddle-node structure of Equation~\eqref{eq:dynamics}, the p99 threshold is defined post-hoc from the observed score distribution. It serves as an operational filter for identifying statistically exceptional coalitions --- those in the upper 1\% of strategic cohesion and influence reach --- and provides a quantitative analog to the qualitative concept of a tipping coalition introduced in Section~\ref{sec:math}. Future work (Section~\ref{sec:future}) could calibrate $\lambda_c$ against historical negotiation outcomes to replace this empirical proxy with a theoretically-grounded criterion.
+We designate the 99th percentile value (24{,}599) as a data-driven tipping threshold. This is an empirical criterion, not a derivation of the analytical bifurcation threshold $\lambda_c$ from Section~\ref{sec:math}: unlike $\lambda_c$, which is defined by the saddle-node structure of Equation~\eqref{eq:dynamics}, the p99 threshold is defined post-hoc from the observed score distribution. It serves as an operational filter for identifying statistically exceptional coalitions --- those in the upper 1\% of strategic cohesion and influence reach --- and provides a quantitative analogue to the qualitative concept of a tipping coalition introduced in Section~\ref{sec:math}. Future work (Section~\ref{sec:future}) could calibrate $\lambda_c$ against historical negotiation outcomes to replace this empirical proxy with a theoretically-grounded criterion.
 
 \paragraph{Examples.}
 One illustrative coalition exceeding this threshold is:
@@ -462,7 +462,7 @@ The full list of top-scoring coalitions is available in the supplementary datase
 	\href{https://github.com/its-not-rocket-science/tensor-based-game-theory-identifying-critical-coalitions-climate-change-negotiations/blob/main/outputs/minor_tipping_coalitions_2_to_3_members.csv.gz}{\texttt{minor\_tipping\_coalitions\_2\_to\_3\_members.csv.gz (GitHub)}}
 \end{quote}
 
-This empirical framework provides a quantitative, justifiable method to surface novel candidate alliances for international coordination.
+This empirical framework provides a quantitative, justifiable method to surface candidate alliances for international coordination.
 
 \subsection{Fast Greedy Search for Tipping Coalitions}
 \label{sec:greedy_coalitions}
@@ -492,7 +492,7 @@ The greedy algorithm optimises raw TippingScore (Equation~\ref{eq:tipping_score}
 \end{figure}
 
 \paragraph{Structural Interpretation.}
-Figure~\ref{fig:greedy_coalition_network} presents a network of coalition memberships, where edges indicate co-occurrence in high-scoring coalitions. The structure reveals recurring strategic partnerships and potential nuclei for coordination blocs.
+Figure~\ref{fig:greedy_coalition_network} presents a network of coalition memberships, where edges indicate co-occurrence in high-scoring coalitions. The structure reveals recurring strategic partnerships and frequently co-occurring actor pairings.
 
 \begin{figure}[htbp]
 	\centering
@@ -515,9 +515,7 @@ To assess the empirical plausibility of the coalitions identified by our model, 
 We found that several of our model-identified coalitions contain members from these influential real-world initiatives. For example, \textit{Jamaica}, \textit{Mauritius}, and \textit{The Bahamas} — all AOSIS members — appear in multiple top-scoring coalitions, as do HAC member states \textit{Ireland}, \textit{Greece}, and \textit{Uruguay} (see Table~\ref{tab:matched_coalitions}). All 164 unique greedy-discovered coalitions overlap with at least one of the three initiatives, reflecting the broad geographic reach of HAC and AOSIS membership among non-G20 nations.
 
 \paragraph{Interpretation.}
-This overlap supports the model's validity: coalitions flagged as potentially influential by our tipping score framework are not only plausible but often reflect known diplomatic groupings that have, in fact, shaped global policy outcomes. The predictive alignment between our method and historical reality reinforces the model’s interpretive and forecasting utility.
-
-\paragraph{Limitations and Next Steps.}
+This overlap supports the model's validity: coalitions flagged as potentially influential by our tipping score framework are not only plausible but often reflect known diplomatic groupings that have, in fact, shaped global policy outcomes. \paragraph{Limitations and Next Steps.}
 Our matching focused only on membership overlap. Future work could extend this by analysing whether these coalitions took joint action within specific negotiation rounds, and whether their emergence preceded shifts in the positions of larger actors.
 
 \begin{table}[htbp]
@@ -550,7 +548,7 @@ As shown in Figures~\ref{fig:rl_strategy_rewards} and~\ref{fig:rl_strategy_sizes
 \end{itemize}
 
 \paragraph{Interpretation.}
-Reward shaping is a crucial lever in tuning coalition discovery. The penalty $\alpha = 1$ is the effective control for producing compact, per-member-efficient coalitions; thresholds add selectivity but have diminishing returns above the natural median. The main real-data experiment in Section~\ref{sec:results_realdata} adopts $\alpha = 1$ (per-member normalisation), no explicit threshold, and size cap 8, which this sweep confirms as a balanced configuration.
+Reward shaping is a key parameter in tuning coalition discovery. The penalty $\alpha = 1$ is the effective control for producing compact, per-member-efficient coalitions; thresholds add selectivity but have diminishing returns above the natural median. The main real-data experiment in Section~\ref{sec:results_realdata} adopts $\alpha = 1$ (per-member normalisation), no explicit threshold, and size cap 8, which this sweep confirms as a balanced configuration.
 
 \begin{figure}[htbp]
 	\centering
@@ -625,7 +623,7 @@ Table~\ref{tab:top10_coalitions} presents the ten highest-scoring coalitions. Th
 \[
 \{\text{Bahamas, Georgia, Greece, Morocco, Philippines, Saint Kitts and Nevis, Spain, Uruguay}\}
 \]
-This coalition achieves strong internal alignment ($\mathrm{Alignment} = 0.604$), high external influence spread ($\mathrm{Spread} = 33{,}578$), and spans 7 of the 8 hierarchical clusters identified in Section~\ref{sec:clustering} ($\mathrm{Diversity} = 7$). The mean composite vulnerability score of its members is 0.504, placing it above the dataset median and generating a 25\% upward adjustment to the base reward. Notably, this coalition combines a SIDS member (Bahamas, Saint Kitts and Nevis) with Southern European, North African, South American, and East Asian representation, achieving geographic breadth without requiring large membership.
+This coalition achieves strong internal alignment ($\mathrm{Alignment} = 0.604$), high external influence spread ($\mathrm{Spread} = 33{,}578$), and spans 7 of the 8 hierarchical clusters identified in Section~\ref{sec:clustering} ($\mathrm{Diversity} = 7$). The mean composite vulnerability score of its members is 0.504, placing it above the dataset median and generating a 25\% upward adjustment to the base reward. This coalition combines a SIDS member (Bahamas, Saint Kitts and Nevis) with Southern European, North African, South American, and East Asian representation, achieving geographic breadth without requiring large membership.
 
 \begin{table}[htbp]
 \centering
@@ -702,7 +700,7 @@ Philippines          & 11.0 & 0.478 \\
 \end{tabular}
 \end{table}
 
-Several structural patterns distinguish keystone actors. First, Northern and Southern European countries (Greece, Spain, Sweden, Finland, Cyprus) consistently appear, suggesting that their dense treaty ratification profiles generate the high alignment scores that drive the reward. Second, North African and Levantine actors (Tunisia, Algeria, Egypt, Syria) provide geographic bridging across clusters while also carrying above-median vulnerability scores, thereby contributing to both the $\mathrm{ClusterDiversity}$ and vulnerability multiplicative terms. Third, Caribbean SIDS (Saint Kitts and Nevis, Bahamas) and South-East Asian countries (Philippines, Sri Lanka) combine non-trivial vulnerability with cross-regional reach. Notably, Uruguay stands out as the single country combining strong treaty alignment, adequate vulnerability ($0.40$), and South American cluster membership rarely represented elsewhere in the top coalitions.
+Several structural patterns distinguish keystone actors. First, Northern and Southern European countries (Greece, Spain, Sweden, Finland, Cyprus) consistently appear, suggesting that their dense treaty ratification profiles generate the high alignment scores that drive the reward. Second, North African and Levantine actors (Tunisia, Algeria, Egypt, Syria) provide geographic bridging across clusters while also carrying above-median vulnerability scores, thereby contributing to both the $\mathrm{ClusterDiversity}$ and vulnerability multiplicative terms. Third, Caribbean SIDS (Saint Kitts and Nevis, Bahamas) and South-East Asian countries (Philippines, Sri Lanka) combine non-trivial vulnerability with cross-regional reach. Uruguay stands out as the single country combining strong treaty alignment, adequate vulnerability ($0.40$), and South American cluster membership rarely represented elsewhere in the top coalitions.
 
 \subsection{Structural Patterns and Coalition Composition}
 \label{sec:results_structure}
@@ -734,17 +732,17 @@ The dominance of Uruguay and Tunisia as keystone actors --- appearing in 23\% an
 
 Northern and Southern European keystones (Greece, Spain, Sweden, Finland, Cyprus) primarily contribute through alignment. These countries share ratification profiles with a broad set of treaty partners across multiple regions, producing high pairwise cosine similarities even with geographically distant coalition members. Their inclusion consistently raises the alignment component of the tipping score without requiring large coalition size.
 
-The SIDS representation in optimal coalitions (Bahamas, Saint Kitts and Nevis, Marshall Islands, Palau) reflects the vulnerability multiplier's effect: SIDS are assigned a Sea Level Exposure score of 1.0, the maximum possible, and carry composite vulnerability scores near 0.5 that substantially boost the reward multiplicative term. The algorithmic preference for including frontline-affected nations is not imposed by design; it emerges from the structure of the reward function. Coalitions that maximise tipping score under this formulation also tend to include nations most directly threatened by climate outcomes --- an alignment between computational optimisation and the normative demands of climate justice.
+The SIDS representation in optimal coalitions (Bahamas, Saint Kitts and Nevis, Marshall Islands, Palau) reflects the vulnerability multiplier's effect: SIDS are assigned a Sea Level Exposure score of 1.0, the maximum possible, and carry composite vulnerability scores near 0.5 that substantially boost the reward multiplicative term. The algorithmic preference for including frontline-affected nations is not imposed by design; it emerges from the structure of the reward function. Coalitions that maximise tipping score under this formulation also tend to include nations most directly threatened by climate outcomes, consistent with equity-based criteria in climate governance.
 
 \subsection*{Cross-Cluster Diversity as a Structural Requirement}
 
 The finding that all top-10 coalitions span at least 6 of the 8 hierarchical treaty clusters identifies cross-cluster diversity not merely as a desirable property but as a necessary condition for high-scoring configurations. This arises from the multiplicative structure of the reward function: the ClusterDiversity term can only reach values of 6 or 7 if coalition members are drawn from correspondingly many distinct ratification communities. Single-cluster coalitions, regardless of internal alignment, are penalised by a low diversity multiplier.
 
-This result operationalises the theoretical prediction from Section~\ref{sec:clustering}: the most strategically valuable coalitions are often the least obvious. Within-cluster groupings reflect existing regional blocs and are likely already explored diplomatically. Cross-cluster alliances that bridge distant treaty communities represent the novel candidates that computational coalition discovery can surface.
+This result operationalises the theoretical prediction from Section~\ref{sec:clustering}: high-leverage coalitions tend to span geographically and institutionally disparate treaty communities. Within-cluster groupings reflect existing regional blocs and are likely already explored diplomatically. Cross-cluster alliances that bridge distant treaty communities represent the configurations that computational coalition discovery is designed to surface.
 
 \subsection*{Comparison to Real-World Coalitions}
 
-As discussed in Section~\ref{sec:empirical_validation}, several model-identified high-scoring coalitions contain members of known real-world climate initiatives. AOSIS-affiliated nations (Bahamas, Saint Kitts and Nevis, Marshall Islands, Samoa, Vanuatu, Palau) appear frequently in top-ranking coalitions. This overlap supports the model's empirical plausibility: nations that have historically formed influential coalitions in actual negotiations also score highly under our tipping score framework. Importantly, this alignment is not guaranteed by construction, since the tipping score is derived from treaty co-ratification patterns and influence spread, not from historical negotiation outcomes. The overlap is therefore a form of out-of-sample consistency rather than a definitional artifact.
+As discussed in Section~\ref{sec:empirical_validation}, several model-identified high-scoring coalitions contain members of known real-world climate initiatives. AOSIS-affiliated nations (Bahamas, Saint Kitts and Nevis, Marshall Islands, Samoa, Vanuatu, Palau) appear frequently in top-ranking coalitions. This overlap supports the model's empirical plausibility: nations that have historically formed influential coalitions in actual negotiations also score highly under our tipping score framework. This alignment is not guaranteed by construction, since the tipping score is derived from treaty co-ratification patterns and influence spread, not from historical negotiation outcomes. The overlap is therefore a form of out-of-sample consistency rather than a definitional artifact.
 
 \subsection*{Limitations}
 
@@ -782,7 +780,7 @@ This paper introduced a tensor-based game-theoretic framework for identifying ca
 
 Empirically, we operationalised this framework on a real-data pipeline spanning 175 non-G20 nations, treaty participation data from 263 multilateral environmental agreements (1950--2017), and composite vulnerability scores from the ND-GAIN Country Index and WRI Aqueduct 4.0. The core computational innovation is a REINFORCE policy gradient agent using Gumbel top-$K$ sampling, which resolves the coalition validity and reward sparsity problems that arise when applying standard Bernoulli-based policy networks to $N = 175$. The trained agent discovers 4{,}964 unique coalitions from 5{,}000 post-training samples, with the highest-scoring configuration achieving a tipping score of 22{,}229 --- a 14.7\% improvement over the best score in an equivalent random search.
 
-The discovered coalitions exhibit consistent structural patterns. High-scoring coalitions span 6--7 of 8 treaty-participation clusters, confirming that cross-cluster geographic and institutional diversity is a necessary condition for maximising tipping potential. Uruguay and Tunisia emerge as the leading keystone actors, appearing in 23\% and 20\% of top-100 coalitions respectively, driven by dense treaty ratification profiles and above-median climate vulnerability. The vulnerability weighting mechanism creates an algorithmic incentive for including Small Island Developing States and frontline-affected nations, aligning optimally-discovered coalitions with the normative demands of climate justice.
+The discovered coalitions exhibit consistent structural patterns. High-scoring coalitions span 6--7 of 8 treaty-participation clusters, confirming that cross-cluster geographic and institutional diversity is a necessary condition for maximising tipping potential. Uruguay and Tunisia emerge as the leading keystone actors, appearing in 23\% and 20\% of top-100 coalitions respectively, driven by dense treaty ratification profiles and above-median climate vulnerability. The vulnerability weighting mechanism creates an algorithmic incentive for including Small Island Developing States and frontline-affected nations, consistent with equity-based criteria in climate governance.
 
 This work provides a new computational lens for identifying under-recognised coalitions whose coordinated action could shift international climate governance outcomes. Future work should address the temporal limitation of the IEA dataset by incorporating post-2017 treaty data and COP outcome records, enrich the influence matrix with economic and diplomatic network features beyond co-ratification, and develop causal validation methods that test whether model-identified coalitions predict actual shifts in negotiating positions. The principled determination of the tipping threshold $\lambda_{\text{crit}}$ --- currently set exogenously at 30 --- through bifurcation analysis or empirical calibration against historical events remains an important open direction.
 
@@ -806,13 +804,13 @@ The table below summarizes the final coalitions discovered by the reinforcement 
 		\textbf{Reward Function} & \textbf{Final Coalition} & \textbf{Size} \\
 		\midrule
 		Raw Reward               & [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] & 10 \\
-		Penalized Reward         & [1, 2, 3, 4, 6]               & 5 \\
+		Penalised Reward         & [1, 2, 3, 4, 6]               & 5 \\
 		Threshold-Based Reward   & [1, 3, 5, 8]                  & 4 \\
 		\bottomrule
 	\end{tabular}
 \end{table}
 
-These outcomes reflect the effect of reward shaping on learned policy structure. Threshold-based rewards reliably result in small tipping coalitions. Penalized rewards can balance efficiency and size when tuned appropriately, while raw rewards predictably encourage maximal inclusion.
+These outcomes reflect the effect of reward shaping on learned policy structure. Threshold-based rewards reliably result in small tipping coalitions. Penalised rewards can balance efficiency and size when tuned appropriately, while raw rewards predictably encourage maximal inclusion.
 
 
 \section*{Appendix: Cluster Composition and Internal Similarity}
