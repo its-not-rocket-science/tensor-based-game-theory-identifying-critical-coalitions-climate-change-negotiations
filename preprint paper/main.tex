@@ -431,7 +431,7 @@ As shown in Figure~\ref{fig:score_distribution}, the tipping scores form a posit
 \end{figure}
 
 \paragraph{Tipping Threshold Definition.}
-We designate the 99th percentile value (24{,}599) as a data-driven tipping threshold. Coalitions that exceed this benchmark demonstrate unusually high strategic cohesion and influence potential. These meet the operational criteria of a tipping coalition, as originally formalised.
+We designate the 99th percentile value (24{,}599) as a data-driven tipping threshold. This is an empirical criterion, not a derivation of the analytical bifurcation threshold $\lambda_c$ from Section~\ref{sec:math}: unlike $\lambda_c$, which is defined by the saddle-node structure of Equation~\eqref{eq:dynamics}, the p99 threshold is defined post-hoc from the observed score distribution. It serves as an operational filter for identifying statistically exceptional coalitions --- those in the upper 1\% of strategic cohesion and influence reach --- and provides a quantitative analog to the qualitative concept of a tipping coalition introduced in Section~\ref{sec:math}. Future work (Section~\ref{sec:future}) could calibrate $\lambda_c$ against historical negotiation outcomes to replace this empirical proxy with a theoretically-grounded criterion.
 
 \paragraph{Examples.}
 One illustrative coalition exceeding this threshold is:
@@ -515,25 +515,25 @@ Our matching focused only on membership overlap. Future work could extend this b
 \subsection{Reward Strategy Sensitivity Analysis}
 \label{sec:rl_reward_strategies}
 
-To evaluate the impact of reward design on reinforcement learning behaviour, we ran a sweep over key parameters in the tipping coalition environment. Specifically, we varied:
+To evaluate the impact of reward design on reinforcement learning behaviour, we ran a sweep over key parameters using the corrected pipeline ($n = 175$, influence matrix spread metric). Specifically, we varied:
 \begin{itemize}
 	\item \textbf{Size Cap}: The maximum allowed number of members in a coalition (4, 6, or 8);
-	\item \textbf{Penalty $\alpha$}: A reward penalty based on coalition size ($\alpha \in \{0.0, 1.0\}$);
-	\item \textbf{Reward Threshold}: A tipping score cut-off (none, 500, or 800).
+	\item \textbf{Penalty $\alpha$}: A size-based reward penalty ($\alpha \in \{0.0, 1.0\}$, applied as $\text{score} / |C|^{\alpha}$);
+	\item \textbf{Reward Threshold}: A minimum score filter (none, 2{,}000, or 5{,}000). Thresholds are set relative to the corrected-pipeline score distribution: 2{,}000 falls near the 42nd percentile of per-member rewards for 3-member coalitions; 5{,}000 is near the median.
 \end{itemize}
 
-Each configuration trained a new policy from scratch using real data from the IEA ratification dataset and our tipping score function.
+Each configuration trained a policy from scratch over 500 epochs using Gumbel top-$K$ sampling.
 
 \paragraph{Findings.}
-As shown in Figures~\ref{fig:rl_strategy_rewards} and~\ref{fig:rl_strategy_sizes}, these strategy parameters strongly influence the learned coalition profiles:
+As shown in Figures~\ref{fig:rl_strategy_rewards} and~\ref{fig:rl_strategy_sizes} and Table~\ref{tab:rl_strategy_summary}, these parameters strongly influence learned coalition profiles:
 \begin{itemize}
-	\item Without penalties, larger coalitions are favoured and reward values increase;
-	\item Penalties incentivise smaller, more efficient groups with high per-member impact;
-	\item Thresholds eliminate weak coalitions entirely, increasing selectivity.
+	\item \textbf{Without penalty ($\alpha = 0$)}, mean reward scales with size cap (15{,}335 $\to$ 25{,}202 $\to$ 35{,}670 for caps 4, 6, 8), since larger coalitions earn higher raw TippingScores. Average coalition size tracks upward with the cap.
+	\item \textbf{With penalty ($\alpha = 1$)}, rewards collapse to 5{,}000--8{,}000 regardless of size cap, as the per-member normalisation equalises expected payoffs. The agent still exploits the full size range but is no longer incentivised to maximise coalition size.
+	\item \textbf{Threshold = 2{,}000} has minimal effect (episodes drop by $<$2\%), confirming it lies below the typical reward. \textbf{Threshold = 5{,}000} more aggressively filters episodes (episodes drop 7--45\% depending on configuration) and modestly raises mean reward, increasing selectivity at the cost of fewer learning signal updates per epoch.
 \end{itemize}
 
 \paragraph{Interpretation.}
-This sensitivity analysis demonstrates that reward shaping is a crucial lever in tuning the realism and diversity of RL-discovered coalitions. Penalty and threshold constraints are essential for producing compact, strategic alliances that reflect the practical tradeoffs in real-world negotiations.
+Reward shaping is a crucial lever in tuning coalition discovery. The penalty $\alpha = 1$ is the effective control for producing compact, per-member-efficient coalitions; thresholds add selectivity but have diminishing returns above the natural median. The main real-data experiment in Section~\ref{sec:results_realdata} adopts $\alpha = 1$ (per-member normalisation), no explicit threshold, and size cap 8, which this sweep confirms as a balanced configuration.
 
 \begin{figure}[htbp]
 	\centering
@@ -740,6 +740,7 @@ Fourth, the reward function is a proxy for strategic influence, not a mechanisti
 The framework developed here has several potential applications in climate governance. Coalition advisors could use the keystone country analysis to prioritise diplomatic outreach: Uruguay, Tunisia, Greece, and Algeria appear to offer the greatest leverage as coalition anchors across the widest range of high-scoring configurations. The cross-cluster diversity finding suggests that effective coalition building should deliberately seek members from geographically and institutionally disparate treaty communities, rather than deepening existing blocs. The vulnerability weighting mechanism provides a principled way to incorporate equity considerations into coalition design: by rewarding coalitions that include climate-vulnerable nations, the framework creates a strategic incentive for their inclusion that operates independently of moral arguments.
 
 \section{Future Work}
+\label{sec:future}
 
 \paragraph{Threshold calibration.}
 The tipping threshold $\lambda_{\text{crit}}$ is currently set exogenously. A principled alternative would calibrate it against historical negotiation outcomes --- identifying the eigenvalue regime corresponding to known episodes of coalition-induced momentum shifts (e.g., COP21 or the Kyoto Protocol negotiations). Alternatively, $\lambda_{\text{crit}}$ could be derived analytically from the saddle-node bifurcation structure of the dynamical system in Equation~\eqref{eq:dynamics}.
