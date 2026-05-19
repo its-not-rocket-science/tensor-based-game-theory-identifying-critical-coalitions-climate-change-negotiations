@@ -1,0 +1,16 @@
+Dear Editors,
+
+I am submitting for your consideration the manuscript "Tipping the Climate Equilibrium: Tensor-Based Game Theory for Identifying Critical Coalitions in Climate Policy Negotiations."
+
+The paper introduces a third-order tensor model of strategic interaction in multilateral climate negotiations and uses it to identify small coalitions of non-G20 nations capable of shifting the system toward a high-cooperation equilibrium. The central theoretical contribution is a formal proof that, for the real-data influence tensor, the first-order Z-eigenvalue shift under coalition activation equals a weighted combination of internal alignment and outward influence spread — providing exact algebraic grounding for the composite tipping score metric. On the empirical side, a REINFORCE policy gradient agent with Gumbel top-K sampling discovers high-scoring coalitions from a space of 175 countries and 263 treaties, achieving a 14.7% improvement over random search and identifying Uruguay, Tunisia, Greece, and Algeria as keystone coalition anchors. A key finding is that cross-cluster geographic diversity spanning at least six of eight treaty-participation communities is a necessary condition for top-scoring coalitions — operationalising the intuition that the most influential alliances are the least obvious.
+
+I believe this manuscript fits the Journal of Environmental Economics and Management because it combines formal economic theory (cooperative game theory, bifurcation analysis) with a novel computational method and a large-scale real-data application directly relevant to international environmental policy. The framework offers applied value for coalition advisors and climate negotiators in addition to its methodological contributions.
+
+This manuscript has not been submitted elsewhere and is not under review at any other journal. All data and code will be made publicly available upon acceptance.
+
+Thank you for your time and consideration.
+
+Sincerely,
+Paul Schleifer
+Independent Researcher, London, United Kingdom
+paul.schleifer@hotmail.com
