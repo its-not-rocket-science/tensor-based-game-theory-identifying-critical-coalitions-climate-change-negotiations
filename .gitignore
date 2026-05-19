@@ -4,6 +4,12 @@
 exhaustive_k4_log.txt
 .claude/
 
+## Large uncompressed outputs (committed as .csv.gz via LFS instead)
+python/outputs/minor_tipping_coalitions_2_to_*.csv
+
+## Large raw input files (too big for plain git)
+python/inputs/Aqueduct40_rankings_download_Y2023M07D05.xlsx
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
