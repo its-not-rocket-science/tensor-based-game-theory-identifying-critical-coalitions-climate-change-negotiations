@@ -24,6 +24,8 @@
 
 \date{\today}
 
+\newcommand{\keywords}[1]{\par\noindent\textbf{Keywords:} #1}
+
 \begin{document}
 
 \maketitle
@@ -33,6 +35,8 @@ We introduce a tensor-based extension of multiplayer game theory to model how sm
 
 We prove formally that for the real-data influence tensor the first-order Z-eigenvalue shift under coalition activation equals a weighted combination of internal co-ratification alignment and outward influence spread, providing an exact algebraic grounding for the tipping score metric. We validate the framework analytically on small synthetic systems, demonstrating eigenvalue-driven phase transitions when minor-player coalitions are activated, and computationally on a real-data pipeline covering 175 non-G20 nations across 263 multilateral environmental agreements (1950--2017). Vulnerability scores from the ND-GAIN Country Index and WRI Aqueduct 4.0 are integrated into the reward function, creating an incentive for including frontline-affected nations in optimal coalitions. A REINFORCE policy gradient agent using Gumbel top-$K$ sampling discovers coalitions that outperform exhaustive random search by 14.7\%, achieving a peak tipping score of 22,229 across 4,964 unique configurations. Keystone country analysis identifies Uruguay, Tunisia, Greece, and Algeria as consistently high-leverage coalition anchors. We find that cross-cluster geographic diversity spanning at least 6 of 8 treaty-participation clusters is a necessary condition for top-scoring coalitions, operationalising the theoretical prediction that the most strategically valuable alliances are the least obvious ones.
 \end{abstract}
+
+\keywords{tensor games; coalition formation; climate negotiations; reinforcement learning; Z-eigenvalue; tipping points}
 
 \section{Introduction}
 \label{sec:intro}
