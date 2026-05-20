@@ -176,11 +176,11 @@ Let $\mathbf{x}_i \in \{0,1\}^T$ be the binary treaty ratification vector of cou
     \mathcal{T}_{ijk} = \mathbf{x}_j \cdot \mathbf{x}_k,
     \label{eq:real_tensor}
 \end{equation}
-where $\mathbf{x}_j \cdot \mathbf{x}_k$ counts treaties jointly ratified by $j$ and $k$, interpreted as the strength of their joint normative influence on country $i$'s strategic update. This tensor is symmetric in its last two indices ($\mathcal{T}_{ijk} = \mathcal{T}_{ikj}$) and is consistent with the general formulation in Equation~\eqref{eq:dynamics}. For a coalition $C$ with $s_j = 1$ for $j \in C$ and $s_j = 0$ otherwise, the perturbation received by non-member $i \notin C$ is:
+where $\mathbf{x}_j \cdot \mathbf{x}_k$ counts treaties jointly ratified by $j$ and $k$, interpreted as the bilateral co-engagement strength of the sending pair $(j,k)$. Crucially, this entry is \emph{independent of the recipient index $i$}: setting $M = XX^\top$ (with $X$ the $N \times T$ ratification matrix, rows $\mathbf{x}_i^\top$), the proxy satisfies $\mathcal{T}_{ijk} = M_{jk}$ for every $i$. The tensor is therefore rank-1 in its first mode --- a deliberate simplification that replaces the fully recipient-specific triadic tensor of Sections~\ref{sec:math}--\ref{sec:simulation} with a tractable bilateral co-ratification structure in which influence depends only on the engagement of the sending pair, not on the identity of the recipient. The tensor is symmetric in its last two indices ($\mathcal{T}_{ijk} = \mathcal{T}_{ikj}$) and is consistent with the general formulation in Equation~\eqref{eq:dynamics}. For a coalition $C$ with $s_j = 1$ for $j \in C$ and $s_j = 0$ otherwise, the aggregate influence received by any country $i$ is:
 \begin{equation}
-    \left(\mathcal{T} \cdot \mathbf{s}_C^2\right)_i = \sum_{j,k \in C} \mathcal{T}_{ijk} = \left\|\sum_{j \in C} \mathbf{x}_j\right\|^2.
+    \left(\mathcal{T} \cdot \mathbf{s}_C^2\right)_i = \sum_{j,k \in C} M_{jk} = \left\|\sum_{j \in C} \mathbf{x}_j\right\|^2,
 \end{equation}
-A shift in $\lambda_{\max}^{(C)}$ sufficient to trigger the bifurcation condition therefore depends on three structural properties of $C$: (i) the internal directional coherence of the coalition's treaty vectors, (ii) the aggregate treaty-based influence propagated from coalition members to non-members, and (iii) the structural independence of the coalition's influence channels across distinct treaty communities.
+identical for all $i$ (inside and outside the coalition alike). A shift in $\lambda_{\max}^{(C)}$ sufficient to trigger the bifurcation condition therefore depends on: (i) the internal co-ratification coherence of the coalition's treaty vectors, (ii) the aggregate outward treaty overlap from coalition members to non-members, and (iii) the structural diversity of the coalition's influence channels across distinct treaty communities (a heuristic criterion, motivated below).
 
 \paragraph{TippingScore definition.}
 We operationalise these three properties as:
@@ -194,17 +194,30 @@ where $M_{ij} = \mathbf{x}_i \cdot \mathbf{x}_j$ is the bilateral treaty co-rati
     \text{TippingScore}(C) = \text{Alignment}(C) \times \text{InfluenceSpread}(C) \times \text{ClusterDiversity}(C).
     \label{eq:tipping_score}
 \end{equation}
-\paragraph{Proposition 1 (Z-eigenvalue sensitivity).}
-For the specific tensor $\mathcal{T}_{ijk} = \mathbf{x}_j \cdot \mathbf{x}_k$, the contraction $(\mathcal{T} \cdot s^2)_i = \|Xs\|^2$ is constant in $i$ for any strategy vector $s$. Consequently, $\mathcal{T}$ has a unique Z-eigenvector $s^* = \mathbf{1}/\sqrt{N}$ with eigenvalue $\lambda_0 = N^{-1/2}\sum_{j,k}M_{jk}$. Under the coalition perturbation $\mathcal{T}^{(C)}(\eta) = \mathcal{T} + (\eta-1)\Delta\mathcal{T}^{(C)}$ of Section~\ref{sec:math}, the dominant Z-eigenvalue satisfies:
+
+\paragraph{Proposition 1 (Z-eigenvalue structure of the proxy tensor).}
+Assume $X \neq 0$. For the proxy tensor $\mathcal{T}_{ijk} = M_{jk}$, the contraction
+\[
+(\mathcal{T} \cdot s^2)_i = \sum_{j,k} M_{jk}\,s_j s_k = s^\top M s \;\geq\; 0
+\]
+is constant in $i$ and non-negative for every $s$. Consequently:
+\begin{enumerate}
+\item The uniform vector $s^* = \mathbf{1}/\sqrt{N}$ is a Z-eigenvector with eigenvalue $\lambda_0 = N^{-1/2}\sum_{j,k}M_{jk} > 0$.
+It is the unique positive-valued unit Z-eigenvector up to sign and is therefore the \textbf{dominant Z-eigenvector} of $\mathcal{T}$.
+\item Any unit vector $v \in \ker(X^\top)$ satisfies $\mathcal{T}\cdot v^2 = 0 = 0\cdot v$ and is a Z-eigenvector with eigenvalue $0$.
+Such vectors exist whenever $\mathrm{rank}(X) < N$; if $\mathrm{rank}(X) = N$, then $\pm s^*$ are the only Z-eigenvectors.
+No Z-eigenvector with negative eigenvalue exists, since $s^\top M s \geq 0$ for all $s$.
+\end{enumerate}
+Under the coalition perturbation $\mathcal{T}^{(C)}(\eta) = \mathcal{T} + (\eta-1)\Delta\mathcal{T}^{(C)}$ of Section~\ref{sec:math}, the dominant Z-eigenvalue satisfies:
 \begin{equation}
     \frac{d\lambda_{\max}^{(C)}}{d\eta}\bigg|_{\eta=1} = \frac{1}{\sqrt{N}}\bigl[\mathrm{InternalSpread}(C) + 2\,\mathrm{InfluenceSpread}(C)\bigr],
     \label{eq:eigenvalue_sensitivity}
 \end{equation}
-where $\mathrm{InternalSpread}(C) = \sum_{j,k \in C} M_{jk}$ and $\mathrm{InfluenceSpread}(C)$ is as in Equation~\eqref{eq:spread}. The derivation follows by evaluating the perturbed eigenvalue at $s^* = \mathbf{1}/\sqrt{N}$ and applying inclusion-exclusion on the support $\{(j,k) : j \in C \text{ or } k \in C\}$ of $\Delta\mathcal{T}^{(C)}$, using symmetry of $M$.
+where $\mathrm{InternalSpread}(C) = \sum_{j,k \in C} M_{jk}$ and $\mathrm{InfluenceSpread}(C)$ is as in Equation~\eqref{eq:spread}. The derivation differentiates the eigenvalue equation at $\eta=1$, using the $i$-independence of $\mathcal{T}$ to show that the Jacobian of $s \mapsto \mathcal{T}\cdot s^2$ at $s^*$ maps $\mathbb{R}^N$ into $\mathrm{span}(\mathbf{1})$, forcing the first-order eigenfunction perturbation to vanish ($s' = 0$). The eigenvalue shift then reduces to $(s^*)^\top[\Delta\mathcal{T}^{(C)}\cdot(s^*)^2]$, evaluated by inclusion-exclusion on the support $\{(j,k) : j \in C \text{ or } k \in C\}$ of $\Delta\mathcal{T}^{(C)}$ and symmetry of $M$.
 
-Proposition~1 establishes a formal link between TippingScore and the eigenvalue bifurcation criterion. $\mathrm{InfluenceSpread}(C)$ appears explicitly in Equation~\eqref{eq:eigenvalue_sensitivity}, and $\mathrm{InternalSpread}(C) = \sum_{j,k\in C}M_{jk}$ is monotonically increasing in $\mathrm{Alignment}(C)$ when coalition members have comparable treaty engagement (equal $\|\mathbf{x}_j\|$). The $\mathrm{ClusterDiversity}$ multiplier in Equation~\eqref{eq:tipping_score} accounts for non-additive gains from spanning structurally independent treaty communities: groups with near-orthogonal ratification profiles contribute independent influence channels that are not captured by the formula for the uniform equilibrium $s^*$, and whose combined effect on the full eigenvalue landscape grows super-linearly with the number of distinct clusters spanned.
+Proposition~1 establishes a formal link between TippingScore and the eigenvalue bifurcation criterion \emph{for the proxy tensor at the dominant equilibrium $s^*$}. $\mathrm{InfluenceSpread}(C)$ appears explicitly in Equation~\eqref{eq:eigenvalue_sensitivity}, and $\mathrm{InternalSpread}(C) = \sum_{j,k\in C}M_{jk}$ is monotonically increasing in $\mathrm{Alignment}(C)$ when coalition members have comparable treaty engagement (equal $\|\mathbf{x}_j\|$). The $\mathrm{ClusterDiversity}$ multiplier in Equation~\eqref{eq:tipping_score} does \emph{not} follow from Equation~\eqref{eq:eigenvalue_sensitivity}; it is a heuristic design criterion that penalises configurations concentrating all coalition members within a single treaty community. The motivation is that coalitions with near-orthogonal ratification profiles exert influence through statistically independent channels, contributing to eigenvalue perturbations beyond the uniform equilibrium $s^*$; including $\mathrm{ClusterDiversity}$ as a multiplicative factor operationalises this intuition without formal derivation from the eigenvalue analysis.
 
-While TippingScore is therefore not equivalent to $\Delta\lambda_{\max}^{(C)}$ for an arbitrary equilibrium $s^*$, it encodes the same structural criteria: high-scoring coalitions are precisely those whose activation would produce the largest, most coherent, and most channel-diverse perturbation to the tensor dynamics. The toy-system eigenvalue experiments in Section~\ref{sec:simulation} demonstrate the direct connection in the tractable ($N \leq 10$) regime; Sections~\ref{sec:minor_coalitions}--\ref{sec:results_realdata} apply TippingScore as the operational criterion at $N = 175$.
+While TippingScore is therefore not equivalent to $\Delta\lambda_{\max}^{(C)}$ for an arbitrary equilibrium $s^*$, it encodes the same structural criteria as the formal result: high-scoring coalitions are precisely those whose activation would produce the largest, most coherent, and most channel-diverse perturbation to the proxy tensor dynamics. The toy-system eigenvalue experiments in Section~\ref{sec:simulation} demonstrate the direct connection in the tractable ($N \leq 10$) regime; Sections~\ref{sec:minor_coalitions}--\ref{sec:results_realdata} apply TippingScore as the operational criterion at $N = 175$.
 
 
 \section{Simulation and Interpretation}
@@ -310,7 +323,7 @@ This method provides a computationally efficient alternative to exhaustive enume
 \vspace{0.5em}
 
 The implementation used to generate Figure~\ref{fig:greedy_tipping} is available at:
-[details withheld for double-anonymous review]}
+[details withheld for double-anonymous review]
 
 
 \subsection{Reinforcement Learning for Coalition Formation}
@@ -456,7 +469,7 @@ with a tipping score of 33{,}527. These three countries span Southern Europe and
 
 The full list of top-scoring coalitions is available in the supplementary dataset (compressed):
 \begin{quote}
-	[details withheld for double-anonymous review]}
+	[details withheld for double-anonymous review]
 \end{quote}
 
 This empirical framework provides a quantitative, justifiable method to surface candidate alliances for international coordination.
@@ -522,7 +535,7 @@ Our matching focused only on membership overlap. Future work could extend this b
 	\scriptsize
 	\input{matched_real_world_coalitions_summary.tex}
 	\caption{Sample of high-scoring minor-player coalitions with overlaps to known real-world initiatives. Full results available at:
-		[details withheld for double-anonymous review]}}
+		[details withheld for double-anonymous review]}
 	\label{tab:matched_coalitions}
 \end{table}
 
