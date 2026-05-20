@@ -1,16 +1,20 @@
-Dear Editors,
+Dear Editor,
 
-I am submitting for your consideration the manuscript "Tipping the Climate Equilibrium: Tensor-Based Game Theory for Identifying Critical Coalitions in Climate Policy Negotiations" for publication in Environmental and Resource Economics.
+Please find enclosed our manuscript, "Tipping the Climate Equilibrium: Tensor-Based Game Theory for Identifying Critical Coalitions in Climate Policy Negotiations," submitted for consideration in Environmental and Resource Economics.
 
-The paper introduces a third-order tensor model of strategic interaction in multilateral climate negotiations and uses it to identify small coalitions of non-G20 nations capable of shifting the system toward a high-cooperation equilibrium. The central theoretical contribution is a formal proof that, for the real-data influence tensor, the first-order Z-eigenvalue shift under coalition activation equals a weighted combination of internal alignment and outward influence spread — providing exact algebraic grounding for the composite tipping score metric. On the empirical side, a REINFORCE policy gradient agent with Gumbel top-K sampling discovers high-scoring coalitions from a space of 175 countries and 263 treaties, achieving a 14.7% improvement over random search and identifying Uruguay, Tunisia, Greece, and Algeria as keystone coalition anchors. A key finding is that cross-cluster geographic diversity spanning at least six of eight treaty-participation communities is a necessary condition for top-scoring coalitions, consistent with the theoretical expectation that high-leverage coalitions span geographically and institutionally disparate treaty communities.
+The paper develops a tensor-based extension of multiplayer game theory to identify small coalitions of non-G20 nations capable of shifting the cooperative equilibrium in international climate negotiations. The central contribution is a formal connection between spectral bifurcation conditions for a third-order influence tensor and a tractable coalition scoring rule, with an exact analytical result (Proposition 1) establishing the Z-eigenvalue sensitivity of the proxy tensor to coalition activation. Empirically, the framework is applied to a real-data pipeline covering 175 non-G20 countries across 263 multilateral environmental agreements (1950--2017), augmented with composite vulnerability scores from the ND-GAIN Country Index and WRI Aqueduct 4.0. A REINFORCE policy gradient agent using Gumbel top-K sampling discovers coalitions that outperform exhaustive random search by 14.7%, identifying Uruguay, Tunisia, Greece, and Algeria as consistently high-scoring coalition anchors.
 
-I believe this manuscript fits Environmental and Resource Economics because it combines formal economic theory with a novel computational method and a large-scale real-data application directly relevant to international environmental policy. The framework offers applied value for coalition advisors and climate negotiators in addition to its methodological contributions, and connects to the journal's established interest in coalition formation and international environmental agreements.
+This paper is well suited to Environmental and Resource Economics. The work engages directly with the game-theoretic literature on international environmental agreements and coalition stability (Barrett, 1994; Carraro and Siniscalco, 1993; Hovi et al., 2015), extends that literature with a formal tensor-based framework, and applies it to a policy-relevant empirical setting. The vulnerability-weighted reward function connects the formal modelling to climate equity considerations of current interest in the literature.
 
-This manuscript has not been submitted elsewhere and is not under review at any other journal. A preprint has been posted to arXiv (econ.GN / cs.GT) to establish priority; this is disclosed in accordance with the journal's preprint policy. All data and code will be made publicly available upon acceptance.
+This manuscript is original work and is not under review at any other journal. No conflicts of interest exist. AI-assisted writing tools were used during manuscript preparation; this is disclosed in the acknowledgements. The paper is submitted double-anonymously in compliance with the journal policy.
 
-Thank you for your time and consideration.
+All data and code supporting the analysis are available at the project repository (link provided upon acceptance, in compliance with the double-anonymous policy).
 
-Sincerely,
+We look forward to your consideration.
+
+Yours sincerely,
+
 Paul Schleifer
 Independent Researcher, London, United Kingdom
+ORCID: 0009-0004-7972-3566
 paul.schleifer@hotmail.com
