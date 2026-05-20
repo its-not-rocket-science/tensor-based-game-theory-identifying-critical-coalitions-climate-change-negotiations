@@ -355,6 +355,14 @@ pdflatex main_anon.tex
 - [ ] Peak score of 22,229 achieved; 4,964 unique coalitions from 5,000 samples
 - [ ] RL improvement over random search: 22,229 / 19,382 − 1 ≈ 14.7%
 
+### Bernoulli sampling ablation
+
+Demonstrates why Gumbel top-K is necessary (paper §6.2).
+
+- [ ] Run `rl_train_realdata_strategic_rewards.py` with Bernoulli sampling enabled (replace Gumbel top-K block with `torch.bernoulli(probs)` and filter to size-cap)
+- [ ] Confirm 0 valid coalitions sampled from 5,000 post-training draws — expected coalition size ~N/2 = 87 always exceeds size cap of 8
+- [ ] Result committed: `python/outputs/rl_learned_coalitions_realdata_with_sim_vulnerability.csv` contains header only (0 data rows)
+
 ---
 
 ## arXiv source checklist
