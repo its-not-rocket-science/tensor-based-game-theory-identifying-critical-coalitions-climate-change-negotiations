@@ -7,9 +7,16 @@ text = re.sub(r'\\href\{https://github[.]com/[^}]+\}\{(?:[^{}]|\{[^{}]*\})*\}',
               '[details withheld for double-anonymous review]', text)
 text = re.sub(r'\\url\{https://github[.]com/[^}]+\}',
               '[details withheld for double-anonymous review]', text)
+# Remove Data Availability section entirely (ERE double-blind requirement)
 text = re.sub(
-    r'(\\section\*\{Acknowledgments\}\n).*?(?=\n\\clearpage)',
-    r'\1Blinded for review.\n',
+    r'\\section\*\{Data Availability\}.*?(?=\\section\*\{)',
+    '',
+    text, flags=re.DOTALL
+)
+# Remove Acknowledgments section entirely (ERE double-blind requirement)
+text = re.sub(
+    r'\\section\*\{Acknowledgments\}.*?(?=\\appendix)',
+    '',
     text, flags=re.DOTALL
 )
 open('main_anon.tex', 'w', encoding='utf-8').write(text)
