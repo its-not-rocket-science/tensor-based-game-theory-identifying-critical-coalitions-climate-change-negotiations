@@ -1,6 +1,6 @@
 import re
 text = open('main.tex', encoding='utf-8').read()
-text = re.sub(r'\\author\[1\].*?(?=\\date\{)', '', text, flags=re.DOTALL)
+text = re.sub(r'\\author\[1\].*?(?=\\date\{)', r'\\author{}\n', text, flags=re.DOTALL)
 text = re.sub(r'\\affil\[1\]\{[^}]+\}\n', '', text)
 text = re.sub(r'\\date\{[^}]*\}', r'\\date{}', text)
 text = re.sub(r'\\href\{https://github[.]com/[^}]+\}\{(?:[^{}]|\{[^{}]*\})*\}',
