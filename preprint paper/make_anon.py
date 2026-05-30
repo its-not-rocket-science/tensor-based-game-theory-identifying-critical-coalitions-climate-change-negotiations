@@ -19,5 +19,11 @@ text = re.sub(
     '',
     text, flags=re.DOTALL
 )
+# Remove Appendix (ERE requirement: provide as separate supplementary file)
+text = re.sub(
+    r'\\appendix.*?(?=\\clearpage)',
+    '',
+    text, flags=re.DOTALL
+)
 open('main_anon.tex', 'w', encoding='utf-8').write(text)
 print("main_anon.tex written.")
